@@ -24,7 +24,7 @@ public class BoardServiceImpl implements BoardService{
 		for(int i=0;i<list.size();i++){
 			if(i==(list.size()-1)){
 				article=list.get(i);
-				//list.get(i).setReadCount(String.valueOf((Integer.parseInt((list.get(i).getReadCount()))+1)));
+				/*list.get(i).setReadCount(String.valueOf((Integer.parseInt((list.get(i).getReadCount()))+1)));*/
 			}
 		}
 		return article;
