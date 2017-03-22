@@ -1,0 +1,222 @@
+@CHARSET "UTF-8";
+#contaier{margin-top: 100px;}
+/* reset style */
+html, body {margin: 0;padding: 0;border: 0;font-size: 12px;font-family:'Dotum', tahoma,arial,sans-serif,verdana,helvetica; background: transparent;} 
+h1,h2,h3,h4,h5,h6,p{margin-top:0;}
+fieldset, img{border:0;}
+table{border-collapse:collapse;border-spacing :0;}
+caption, th, td{text-align : left;vertical-align : top;font-weight : normal;}
+input, textarea, select{font-size:110%;line-height:1.1;}
+abbr, acronym{border-bottom : .1em dotted;cursor : help;}
+sup{vertical-align : text-top;}
+sub{vertical-align : text-bottom;}
+blockquote, q {quotes: none;} 
+/* customized style */
+.bg_color_black{background-color: black;}
+.bg_color_darkgray{background-color: #5a5a5a;}
+.bg_color_skyblue{background-color: skyblue;}
+.bg_color_orange{background-color: #ff6a3a}
+.bg_color_powderblue{background-color: powderblue;}
+.bg_color_gray{background-color: #cacaca;}
+.border_dotted {border-style: dotted;}
+.border_dashed {border-style: dashed;}
+.border_solid {border-style: solid;}
+.border_double {border-style: double;}
+.border_groove {border-style: groove;}
+.border_ridge {border-style: ridge;}
+.border_inset {border-style: inset;}
+.border_outset {border-style: outset;}
+.border_none {border-style: none;}
+.border_hidden {border-style: hidden;}
+.border_mix {border-style: dotted dashed solid double;}
+.color_red{color: red;}
+.color_black{color: black;}
+.color_blue{color: blue;}
+.color_darkgray{color: #828282;}
+.color_orange{color: #ff6a3a;}
+.color_yellow{color: yellow;}
+.color_white{color: white;}
+.display_block{display: block;}
+.display_block{display: inline;}
+.display_none{display: none;}/*no space*/
+.display_hidden{visibility: hidden;}/*taking space*/
+.event_hover:hover {background-color: #c0c0c0;}
+.font_bold{font-weight: bold;}
+.font_italic{font-style: italic;}
+.join_select{width: 120px;height: 20px;}
+.height_full_size{height: 100%}
+.list_circle{list-style-type: circle;}
+.list_square{list-style-type: square;}
+.list_upper_roman{list-style-type: upper-roman;}
+.list_lower_alphae{list-style-type: lower-alpha;}
+.logo_box{margin-bottom: 5px; margin-left: 50px; margin-top: 5px;}
+.logo_box>img{width: 160px;height: 43px;}
+.margin_center{margin: 0 auto;}
+.position_fix{position: fixed;}
+.position_abs{position: absolute;}
+.position_rel{position: relative;}
+.table_default{border: 1px solid #505050;border-collapse: collapse;}
+.table_default tr{border: 1px solid #505050;border-collapse: collapse;}
+.table_default tr th{border: 1px solid #505050;border-collapse: collapse;}
+.table_default tr td{border: 1px solid #505050;border-collapse: collapse;}
+.table_bottom{border-bottom: 1px solid #505050;border-collapse: collapse;}
+.table_bottom tr{border-bottom: 1px solid #505050;border-collapse: collapse;}
+.table_bottom tr th{border-bottom: 1px solid #505050;border-collapse: collapse;}
+.table_bottom tr td{border-bottom: 1px solid #505050;border-collapse: collapse;}
+.table_even tr:nth-child(even){background-color: #d9d9d9;}
+.table_odd tr:nth-child(odd){background-color: #d9d9d9;}
+.text_center{text-align: center;}
+.text_left{text-align: left;}
+.text_right{text-align: right;}
+.text_no_underline{text-decoration: none;}
+.text_overline{text-decoration: overline;}
+.text_line_through{text-decoration: line-through;}
+.width_full_size{width: 100%;}
+
+/*referenced by w3school*/
+.dropdown {
+	background-color: #f9f9f9;
+    position: relative;
+    display: inline-block;
+}
+.dropdown_content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 60px;
+    box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.2);
+    padding: 12px 3px;
+    z-index: 1;
+}
+.dropdown:hover .dropdown_content {
+    display: block;
+}
+.gallery {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 180px;
+    height: 300px;
+}
+
+.gallery:hover {
+    border: 2px solid #777;
+}
+
+.gallery img {
+    width: 100%;
+    height: 250px;
+}
+.gallery .desc {
+    padding: 15px;
+    text-align: center;
+}
+.textarea_bbs {
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+}
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block; /* If you want dots under the hoverable text */
+}
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+ 
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+
+
+
+/*나중에 jQueryg할 때 삭제*/
+
+
+.float_right{float:right;}
+.float_left{float:left;}
+.gnb {background-color: #3f65b4; height: 33px;}
+.gnb li{display: inline;}
+.gnb a:link, .gnb li>a:visited, .dropdown>a:link, .dropdown>a:visited, .tooltip>a:link, .tooltip>a:visited{
+    background-color: #3f65b4;
+    color: #ffffff;
+    padding: 10px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 13px;
+}
+.gnb li>a:hover, .gnb li>a:active, .dropdown>a:hover, .dropdown>a:active, .tooltip>a:hover, .tooltip>a:active {
+    background-color: #254391;
+}
+.lnb {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #f1f1f1;
+}
+
+.lnb li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.lnb li {
+    text-align: center;
+    border-bottom: 1px solid #ffffff;
+}
+
+.lnb li:last-child {
+    border-bottom: none;
+}
+
+.lnb li a.active {
+    background-color: #a777bb;
+    color: white;
+}
+
+.lnb li a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+#admin_tab tr td{height:40px;}
+#admin_tab tr th{height:40px;}
+
+.policy >dd {float: left;}
+
+p > a:link, p > a:visited {
+	background-color: #f9f9f9;
+    color: #5a5a5a;
+    padding: 5px 12px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 11px;
+}
+p > a:hover, p > a:active {
+    color: #3f65b4;
+    font-weight: bold;
+}

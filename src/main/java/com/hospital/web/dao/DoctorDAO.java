@@ -1,8 +1,11 @@
 package com.hospital.web.dao;
 
 import java.sql.SQLException;
-import com.hospital.web.domain.DoctorDTO;
 
+import org.springframework.stereotype.Component;
+
+import com.hospital.web.domain.DoctorDTO;
+@Component
 public interface DoctorDAO {
 	public int insert(DoctorDTO member)throws SQLException;
 	public DoctorDTO selectById(DoctorDTO member)throws SQLException;
