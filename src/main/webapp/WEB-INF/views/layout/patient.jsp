@@ -10,7 +10,7 @@
 	<title><tiles:getAsString name="title"/></title>
 	<link rel="stylesheet" type="text/css" href="${context.css}/hanbit.css" />
 	<script src="${context.js}/jquery-3.1.1.js"></script>
-	<script src="${context.js}/hospital.js"></script>
+	<script src="${context.js}/patient.js"></script>
 </head>
 <body>
 	<header>
@@ -19,10 +19,10 @@
 		</div>
 	</header>
 	<section>
-		<article id="publicGnb">
+		<article id="patientGnb">
 			<tiles:insertAttribute name="gnb"/>
 		</article>
-		<article id="publicArticle">
+		<article id="patientArticle">
 			<tiles:insertAttribute name="container"/>
 		</article>
 	</section>

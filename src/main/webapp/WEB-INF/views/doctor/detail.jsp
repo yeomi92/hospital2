@@ -1,7 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:include page="../common/top.jsp"/>
-<jsp:include page="../common/header.jsp"/>
-<jsp:include page="../patient/gnb.jsp"/>
 <div id="container" class="width_full_size" style="height: 500px;">
 <div class="margin_center text_right" style="width: 380px">
 <a href="admin.html" style="background-color: white;color: #31939d;"><b>목록으로</b></a>
