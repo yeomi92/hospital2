@@ -33,7 +33,7 @@
                         <td>전화번호</td>
                         <td></td>
                         <td>혈액형</td>
-                        <td>AB형</td>
+                        <td>AB</td>
                   </tr>
                   <tr>
                         <td>주소</td>
