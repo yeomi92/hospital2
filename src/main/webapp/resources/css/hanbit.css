@@ -220,3 +220,13 @@ p > a:hover, p > a:active {
     color: #3f65b4;
     font-weight: bold;
 }
+.center{
+	position:absolute; 
+top:50%; 
+left:50%; 
+width:300px; 
+height:200px; 
+overflow:hidden; 
+background-color:#FC0; 
+margin-top:-150px; 
+margin-left:-100px;}

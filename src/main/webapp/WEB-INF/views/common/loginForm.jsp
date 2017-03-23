@@ -38,7 +38,6 @@
 		<input type="submit" value="로그인"/>
 	</form>
 </div>
-<jsp:include page="../common/footer.jsp"/>
 <script>
 $(function(){
 	var $loginForm=$('#loginForm');
@@ -56,7 +55,7 @@ $(function(){
 	tab.find('tr:nth-child(5) td:nth-child(1)').css('font-size','10px').css('color','#254391');
 	tab.find('tr:nth-child(5) td:nth-child(2)').css('height','20px').css('color','#254391');
 	$('#loginForm input[value=로그인]').click(function(event){
-		$loginForm.attr("action","${context}/patient.do");
+		$loginForm.attr("action","${context.path}/patient/login");
 		$loginForm.attr("method","post");
 		var idVal=tab.find('input[name=id]').val();
 		var pwVal=tab.find('input[name=password]').val();

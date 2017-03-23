@@ -148,7 +148,6 @@
 		<input type="submit" name="register" value="다음"/>
 	</form>
 </div>
-<jsp:include page="../common/footer.jsp"/>
 <script>
 $(function(){
 	var $registerForm=$('#registerForm');
@@ -160,9 +159,8 @@ $(function(){
 		$registerForm.submit();
 	});
 	
-	
 	$('#container').addClass('width_full_size');
-	$registerForm.add('margin_center').css('width','40%');
+	$registerForm.addClass('margin_center').css('width','40%');
 	tab.addClass('table_default');
 	tab.find('tr:nth-child(1) p:nth-child(1)').addClass('color_blue');
 	tab.find('select').addClass('join_select');
