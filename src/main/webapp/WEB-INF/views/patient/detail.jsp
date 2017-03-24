@@ -47,7 +47,7 @@
 <script>
 function docDetail(){
 	alert("의사 상세보기 클릭");
-	location.href="${context.path}/doctor/login";
+	location.href="${context.path}/patient/doctor/han";
 	//location.href="${context}/doctor.do?action=detail&page=detail&docName=${user.docID}";
 }
 </script>

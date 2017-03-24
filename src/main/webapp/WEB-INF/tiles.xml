@@ -23,5 +23,6 @@
 	<definition name="patient:*/*" extends="patient">
 		<put-attribute name="container" value="/WEB-INF/views/{1}/{2}.jsp"/>	
 	</definition>
+	
 </tiles-definitions>
 
