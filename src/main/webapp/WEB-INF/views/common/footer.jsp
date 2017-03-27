@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<div id="footer" class="width_full_size" style="height: 100px; border-top:2px solid black;">
+<div id="footer" class="width_full_size" style="height: 100px;">
 	<dl class="notice">
 		<dt><a href="/NOTICE" class="h_notice">공지사항</a></dt>
 	</dl>

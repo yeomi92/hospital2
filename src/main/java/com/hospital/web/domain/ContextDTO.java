@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Component@Data
+@Component @Data
 public class ContextDTO {
-	@Getter@Setter
+	@Getter @Setter
 	private String path,js,css,img;
 }

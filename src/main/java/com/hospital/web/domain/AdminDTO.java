@@ -5,9 +5,9 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Component@Data
+@Component @Data
 public class AdminDTO {
-	@Getter@Setter
+	@Getter @Setter
 	private String admID,admPass,admName,admGen,admPhone,admEmail,admPermission;
 
 }

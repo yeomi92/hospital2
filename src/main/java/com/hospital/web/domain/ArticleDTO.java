@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Component @Data
 public class ArticleDTO {
-	@Getter@Setter
+	@Getter @Setter
 	private String seq,id,title,content,regdate,readCount;
 	
 	@Override

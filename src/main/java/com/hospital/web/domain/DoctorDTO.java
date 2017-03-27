@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Component@Data
+@Component @Data
 public class DoctorDTO {
-	@Getter@Setter
+	@Getter @Setter
 	private String docID,docPass,majorTreat,docName,docGen,docPhone,docEmail,docPosition;
 }

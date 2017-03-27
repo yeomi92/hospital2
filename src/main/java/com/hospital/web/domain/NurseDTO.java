@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Component@Data
+@Component @Data
 public class NurseDTO {
-	@Getter@Setter
+	@Getter @Setter
 	private String nurID,nurPass,majorJob,nurName,nurGen,nurPhone,nurEmail,nurPosition;
 }

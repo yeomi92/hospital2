@@ -3,48 +3,60 @@ package com.hospital.web.serviceImpl;
 import java.sql.SQLException;
 import java.util.Calendar;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.hospital.web.daoImpl.PatientDAOImpl;
 import com.hospital.web.domain.PatientDTO;
+import com.hospital.web.mapper.PatientMapper;
 import com.hospital.web.service.PatientService;
 
+@Service
 public class PatientServiceImpl implements PatientService{
-	@Autowired PatientDAOImpl dao;
-	@Autowired PatientDTO session;
+	private static final Logger logger = LoggerFactory.getLogger(PatientServiceImpl.class);
+	@Autowired PatientMapper mapper;
+
 	
 	@Override
 	public int join(PatientDTO member) throws SQLException {
-		return dao.insert(member);
+		logger.info("PatientServiceImpl join() {}","OK");
+		return mapper.insert(member);
 	}
 
 	@Override
 	public PatientDTO findById(String uid) throws SQLException {
-		return dao.selectById(uid);
+		logger.info("PatientServiceImpl findById() {}","OK");
+		return mapper.selectById(uid);
 	}
 
 	@Override
 	public PatientDTO login(PatientDTO member) throws SQLException {
-		//session=findById(member.getPatID());
-		return session;
+		logger.info("PatientServiceImpl login() {}","OK");
+		return mapper.selectById(member.getPatID());
 	}
 
 	@Override
 	public int change(PatientDTO member) throws SQLException {
+		logger.info("PatientServiceImpl change() {}","OK");
 		PatientDTO[] memArr=new PatientDTO[2];
 		memArr[0]=member;
 		memArr[1]=member;		
 		System.out.println("serviceImp session"+memArr[1]);
-		return dao.update(memArr);
+		return mapper.update(memArr);
 	}
 
 	@Override
 	public int remove(PatientDTO member) throws SQLException {
+		logger.info("PatientServiceImpl remove() {}","OK");
 		PatientDTO bean=new PatientDTO();
-		return dao.delete(bean);
+		return mapper.delete(bean);
 	}
 	
 	@Override
 	public String[] getBirth(String jumin) {
+		logger.info("PatientServiceImpl getBirth() {}","OK");
 		String[] birth=new String[2];
 		int ssn=Integer.parseInt(jumin.substring(0,2));
 		switch(jumin.charAt(7)){
@@ -62,6 +74,7 @@ public class PatientServiceImpl implements PatientService{
 
 	@Override
 	public PatientDTO getSession() {
+		logger.info("PatientServiceImpl getSession() {}","OK");
 		// TODO Auto-generated method stub
 		return null;
 	}
