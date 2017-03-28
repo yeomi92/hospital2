@@ -72,7 +72,7 @@ public class PatientController {
 							logger.info("DB RESULT: {}",patient);
 							movePosition = "public:patient/detail";
 						} else {
-							logger.info("DB RESULT: {}", "Password not match");
+							logger.info("DB RESULT: {}", "Password not match!");
 							movePosition = "public:common/loginForm";
 						}
 					}
