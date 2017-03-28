@@ -1,60 +1,18 @@
 package com.hospital.web.mapper;
 
-import org.mybatis.spring.SqlSessionTemplate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.sql.SQLException;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-import com.hospital.web.domain.PatientDTO;
-import com.hospital.web.imapper.IPatientMapper;
+
+import com.hospital.web.domain.Patient;
 
 @Repository
-public class PatientMapper implements IPatientMapper{
-	private static final Logger logger = LoggerFactory.getLogger(PatientMapper.class);
-	@Autowired
-	private SqlSessionTemplate sqlSession;
-	String namespace="com.hospital.web.mapper.PatientMapper";
-	@Override
-	public int insert(PatientDTO patient){
-		logger.info("PatientMapperImpl insert진입 {}", "OK");
-		return 0;
-	}
-	
-	@Override
-	public PatientDTO selectById(String id){
-		logger.info("PatientMapperImpl selectById진입 {}", "OK");
-		return sqlSession.selectOne(namespace+".selectById",id);
-	}
-	
-	@Override
-	public boolean login(PatientDTO patient){
-		logger.info("PatientMapperImpl login진입 {}", "OK");
-		boolean loginch=false;
-		return loginch;
-	}
-	
-	@Override
-	public int update(PatientDTO[] patient){
-		logger.info("PatientMapperImpl update진입 {}", "OK");
-		return 0;
-	}
-	
-	@Override
-	public int delete(PatientDTO patient){
-		logger.info("PatientMapperImpl delete진입 {}", "OK");
-		String sql="";
-		return 0;
-	}
-
-	@Override
-	public int count() {
-		logger.info("PatientMapperImpl count진입 {}", "OK");
-		return sqlSession.selectOne(namespace+".count");
-	}
-
-	@Override
-	public int exist(String id) throws Exception {
-		logger.info("PatientMapperImpl exist진입 {}", "OK");
-		return sqlSession.selectOne(namespace+".exist",id);
-	}
+public interface PatientMapper {
+	public int insert(Patient member)throws SQLException;
+	public Patient selectById(String uid)throws SQLException;
+	public boolean login(Patient member)throws SQLException;
+	public int update(Patient[] member)throws SQLException;
+	public int delete(Patient member)throws SQLException;
+	public int count();
+	public int exist(String id) throws Exception;
 }

@@ -1,39 +1,16 @@
 package com.hospital.web.mapper;
 
 import java.sql.SQLException;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-import com.hospital.web.domain.DoctorDTO;
-import com.hospital.web.imapper.IDoctorMapper;
+
+import com.hospital.web.domain.Doctor;
 
 @Repository
-public class DoctorMapper implements IDoctorMapper{
-	@Override
-	public int insert(DoctorDTO member) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public DoctorDTO selectById(DoctorDTO member) throws SQLException {
-		DoctorDTO temp=new DoctorDTO();
-		return temp;
-	}
-
-	@Override
-	public boolean login(DoctorDTO member) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public int update(DoctorDTO[] member) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int delete(DoctorDTO member) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+public interface DoctorMapper {
+	public int insert(Doctor member)throws SQLException;
+	public Doctor selectById(Doctor member)throws SQLException;
+	public boolean login(Doctor member)throws SQLException;
+	public int update(Doctor[] member)throws SQLException;
+	public int delete(Doctor member)throws SQLException;
 }
