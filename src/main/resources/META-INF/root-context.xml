@@ -4,6 +4,6 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-	<context:annotation-config/>
-	<context:component-scan base-package="com.hospital.web"/>
+	<context:annotation-config/> <!-- 객체이름: 메소드이름  => 객체.메소드() 으로 생각하면 된다.--> <!-- 만든다 -->
+	<context:component-scan base-package="com.hospital.web"/> <!-- 저장한다 -->
 </beans>

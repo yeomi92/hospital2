@@ -61,12 +61,12 @@ public class PatientServiceImpl implements PatientService{
 		int ssn=Integer.parseInt(jumin.substring(0,2));
 		switch(jumin.charAt(7)){
 			case '1':case '2':
-				birth[0]=String.valueOf(Calendar.getInstance().get(Calendar.YEAR)-(1900+ssn)+1)+"¼¼";
-				birth[1]="19"+jumin.substring(0,2)+"³â"+jumin.substring(2,4)+"¿ù"+jumin.substring(4,6)+"ÀÏ";
+				birth[0]=String.valueOf(Calendar.getInstance().get(Calendar.YEAR)-(1900+ssn)+1)+"세";
+				birth[1]="19"+jumin.substring(0,2)+"년"+jumin.substring(2,4)+"월"+jumin.substring(4,6)+"일";
 				break;
 			case '3':case '4':
-				birth[0]=String.valueOf(Calendar.getInstance().get(Calendar.YEAR)-(2000+ssn)+1)+"¼¼";
-				birth[1]="20"+jumin.substring(0,2)+"³â"+jumin.substring(2,4)+"¿ù"+jumin.substring(4,6)+"ÀÏ";
+				birth[0]=String.valueOf(Calendar.getInstance().get(Calendar.YEAR)-(2000+ssn)+1)+"세";
+				birth[1]="20"+jumin.substring(0,2)+"년"+jumin.substring(2,4)+"월"+jumin.substring(4,6)+"일";
 				break;
 		}
 		return birth;
@@ -77,5 +77,11 @@ public class PatientServiceImpl implements PatientService{
 		logger.info("PatientServiceImpl getSession() {}","OK");
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int count() {
+		logger.info("PatientServiceImpl count() {}","OK");
+		return 0;
 	}
 }

@@ -15,29 +15,29 @@
                         <td style="width: 100px">이름</td>
                         <td style="width: 150px">${name}</td>
                         <td style="width: 100px">직업</td>
-                        <td style="width: 150px"></td>
+                        <td style="width: 150px">${job}</td>
                   </tr>
                   <tr>
                         <td>생년월일</td>
-                        <td></td>
+                        <td>${birth}</td>
                         <td>키</td>
                         <td>180cm</td>
                   </tr>
                   <tr>
                         <td>성별</td>
-                        <td></td>
+                        <td>${gender}</td>
                         <td>나이/몸무게</td>
-                        <td></td>
+                        <td>${age}</td>
                   </tr>
                   <tr>
                         <td>전화번호</td>
-                        <td></td>
+                        <td>${phone}</td>
                         <td>혈액형</td>
                         <td>AB</td>
                   </tr>
                   <tr>
                         <td>주소</td>
-                        <td></td>
+                        <td>${address}</td>
                         <td>주치의</td>
                         <td><a onclick="docDetail()" href="#">한석규</a></td>
                   </tr>

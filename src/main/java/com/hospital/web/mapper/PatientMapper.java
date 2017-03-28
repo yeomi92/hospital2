@@ -45,4 +45,16 @@ public class PatientMapper implements IPatientMapper{
 		String sql="";
 		return 0;
 	}
+
+	@Override
+	public int count() {
+		logger.info("PatientMapperImpl count진입 {}", "OK");
+		return sqlSession.selectOne(namespace+".count");
+	}
+
+	@Override
+	public int exist(String id) throws Exception {
+		logger.info("PatientMapperImpl exist진입 {}", "OK");
+		return sqlSession.selectOne(namespace+".exist",id);
+	}
 }

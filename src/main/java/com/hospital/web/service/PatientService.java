@@ -15,6 +15,7 @@ public interface PatientService {
 	public int change(PatientDTO member) throws SQLException ;
 	public int remove(PatientDTO member) throws SQLException ;
 	//util
+	public int count();
 	public String[] getBirth(String jumin);
 	public PatientDTO getSession();
 }

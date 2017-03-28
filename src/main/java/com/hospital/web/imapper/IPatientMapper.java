@@ -11,4 +11,6 @@ public interface IPatientMapper {
 	public boolean login(PatientDTO member)throws SQLException;
 	public int update(PatientDTO[] member)throws SQLException;
 	public int delete(PatientDTO member)throws SQLException;
+	public int count();
+	public int exist(String id) throws Exception;
 }

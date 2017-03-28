@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hospital.web.domain.PatientDTO;
+import com.hospital.web.mapper.PatientMapper;
+import com.hospital.web.service.IExist;
 import com.hospital.web.service.PatientService;
 
 @Controller
@@ -21,6 +23,7 @@ public class PatientController {
 	private static final Logger logger = LoggerFactory.getLogger(PatientController.class);
 	@Autowired PatientService service;
 	@Autowired PatientDTO patient;
+	@Autowired PatientMapper mapper;
 	@RequestMapping(value="/login")
 	public String goLogin(){
 		logger.info("PatientController goLogin() {}", "OK");
@@ -32,16 +35,48 @@ public class PatientController {
 		return "public:patient/registerForm";
 	}
 	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public String login(@RequestParam("id") String id,@RequestParam("password") String pw, Model model) throws SQLException{
+	public String login(@RequestParam("id") String id,@RequestParam("password") String pw, Model model) throws Exception{
 		logger.info("PatientController login() {}", "POST");
 		logger.info("PatientController login() id: {}", id);
 		logger.info("PatientController login() pw: {}", pw);
 		patient.setPatID(id);
 		patient.setPatPass(pw);
-		patient=service.login(patient);
-		logger.info("PatientController service.login()다녀온 후 patient: {}", patient.toString());
-		model.addAttribute("name", patient.getPatName());
-		return "patient:patient/detail";
+		IExist ex = new IExist() {
+						@Override
+						public int exist(Object o) throws Exception {
+							logger.info("--------------ID ?  {} ---------", o);
+							return mapper.exist(id);
+						}
+					};
+					int count = ex.exist(patient.getPatID());
+					logger.info("ID Exist?  {}", count);
+					String movePosition = "";
+					if(count==0) {
+						logger.info("DB RESULT: {}", "ID not exist");
+						movePosition = "public:patient/loginForm";
+					} else {
+						logger.info("DB RESULT: {}", "ID exist");
+						patient=service.login(patient);
+						if(patient.getPatPass().equals(pw)) {
+							logger.info("DB RESULT: {}", "Success");
+							String[] getInfo = service.getBirth(patient.getPatJumin());
+							model.addAttribute("patient", patient);
+							model.addAttribute("name",patient.getPatName());
+							model.addAttribute("address",patient.getPatAddr());
+							model.addAttribute("email",patient.getPatEmail());
+							model.addAttribute("phone",patient.getPatPhone());
+							model.addAttribute("job",patient.getPatJob());
+							model.addAttribute("age",getInfo[0]);
+							model.addAttribute("birth",getInfo[1]);
+							model.addAttribute("gender",patient.getPatGen());
+							logger.info("DB RESULT: {}",patient);
+							movePosition = "public:patient/detail";
+						} else {
+							logger.info("DB RESULT: {}", "Password not match");
+							movePosition = "public:common/loginForm";
+						}
+					}
+					return movePosition;
 	}
 	@RequestMapping(value="/doctor/{docID}")
 	public String getDoctorInfo(@PathVariable String docID,Model model){

@@ -1,3 +1,4 @@
 eclipse.preferences.version=1
+encoding//src/main/java/com/hospital/web/serviceImpl/PatientServiceImpl.java=UTF-8
 encoding//src/main/resources/config/database.properties=UTF-8
 encoding//src/main/resources/sql/mysql_hospital2.properties=UTF-8

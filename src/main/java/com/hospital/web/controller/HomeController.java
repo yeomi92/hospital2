@@ -11,6 +11,7 @@ import com.hospital.web.composite.Complex;
 
 @Controller
 @SessionAttributes("context")
+
 public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	@RequestMapping(value = "/", method = RequestMethod.GET)
