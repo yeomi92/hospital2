@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.hospital.web.domain.Patient;
 
 @Repository
-public interface PatientMapper {
+public interface Mapper {
 	public int insert(Patient member)throws SQLException;
 	public Patient selectById(String uid)throws SQLException;
 	public boolean login(Patient member)throws SQLException;

@@ -4,6 +4,9 @@ import org.springframework.stereotype.Component;
 import lombok.Data;
 
 @Component @Data
-public class Context {
-	private String path,js,css,img;
+public class Person<T extends Info> {
+	public T info;
+	public Person(T info){
+		this.info=info;
+	}
 }

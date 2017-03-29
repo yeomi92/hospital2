@@ -35,6 +35,10 @@
 		</table>
 		<input type="hidden" name="action" value="login" />
 		<input type="hidden" name="page" value="main" />
+		<input type="radio" name="permission" value="patient" checked> 고객
+		<input type="radio" name="permission" value="doctor"> 의사
+		<input type="radio" name="permission" value="nurse"> 간호사
+		<input type="radio" name="permission" value="admin"> 관리자
 		<input type="submit" value="로그인"/>
 	</form>
 </div>
@@ -51,11 +55,13 @@ $(function(){
 	tab.find('tr:nth-child(2) td').addClass('font_bold').css('font-size','10px');
 	tab.find('tr:nth-child(3) input').addClass('width_full_size').css('font-size','10px').css('padding','4px');
 	tab.find('tr:nth-child(4) td').addClass('font_bold').css('font-size','10px');
-	tab.find('tr:nth-child(5) input').addClass('width_full_size').css('font-size','10px').css('padding','4px');
-	tab.find('tr:nth-child(5) td:nth-child(1)').css('font-size','10px').css('color','#254391');
-	tab.find('tr:nth-child(5) td:nth-child(2)').css('height','20px').css('color','#254391');
+	tab.find('tr:nth-child(9) input').addClass('width_full_size').css('font-size','10px').css('padding','4px');
+	tab.find('tr:nth-child(9) td:nth-child(1)').css('font-size','10px').css('color','#254391');
+	tab.find('tr:nth-child(9) td:nth-child(2)').css('height','20px').css('color','#254391');
 	$('#loginForm input[value=로그인]').click(function(event){
-		$loginForm.attr("action","${context.path}/patient/login");
+	var permission=$loginForm.find(':radio[name="permission"]:checked').val();
+	alert('permission:'+permission);
+		$loginForm.attr("action","${context.path}/"+permission+"/login");
 		$loginForm.attr("method","post");
 		var idVal=tab.find('input[name=id]').val();
 		var pwVal=tab.find('input[name=password]').val();

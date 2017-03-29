@@ -3,8 +3,6 @@
 	<ul>
 		<li><a>홈으로</a></li>
 		<li><a>게시판</a></li>
-		<li><a>관리자</a></li>
-		<li><a>의사</a></li>
 		<li>
 			<div>
 				<a>병원소개</a>
@@ -28,25 +26,19 @@ $(function(){
 	commonGnb.find('li:nth-child(2)').click(function(){/* 콜백함수 */
 		goPage('${context.path}/board/list');
 	});
-	commonGnb.find('li:nth-child(3)').click(function(){
-		goPage('${context.path}/admin/login');
-	});
 	commonGnb.find('li:nth-child(4)').click(function(){
-		goPage('${context.path}/doctor/login');
-	});
-	commonGnb.find('li:nth-child(6)').click(function(){
 		goPage('${context.path}/patient/join');
 	});
-	commonGnb.find('li:nth-child(7)').click(function(){
-		goPage('${context.path}/patient/login');
+	commonGnb.find('li:nth-child(5)').click(function(){
+		goPage('${context.path}/login');
 	});
 	//commonGnb.find('ul').css('margin','0px');
 	//commonGnb.find('p>a').addClass('active');
-	commonGnb.find('li:nth-child(5)>div').addClass('tooltip');
-	commonGnb.find('li:nth-child(5)>div>a').addClass('text_no_underline');
-	commonGnb.find('li:nth-child(5)>div>span').addClass('tooltiptext');
-	commonGnb.find('li:nth-child(6)').css('float','right').css('margin-right','45px');
-	commonGnb.find('li:nth-child(7)').css('float','right');
+	commonGnb.find('li:nth-child(3)>div').addClass('tooltip');
+	commonGnb.find('li:nth-child(3)>div>a').addClass('text_no_underline');
+	commonGnb.find('li:nth-child(3)>div>span').addClass('tooltiptext');
+	commonGnb.find('li:nth-child(4)').css('float','right').css('margin-right','45px');
+	commonGnb.find('li:nth-child(5)').css('float','right');
 	//commonGnb.find('ul li a').addClass('text_no_underline').addClass('color_black');
 });
 </script>
