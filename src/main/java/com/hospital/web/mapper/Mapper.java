@@ -9,9 +9,9 @@ import com.hospital.web.domain.Patient;
 
 @Repository
 public interface Mapper {
-	public int registPatient(Patient patient)throws Exception;
-	public int registDoctor(Doctor doctor)throws Exception;
-	public int registNurse(Nurse nurse)throws Exception;
+	public int registPatient(Object o)throws Exception;
+	public int registDoctor(Object o)throws Exception;
+	public int registNurse(Object o)throws Exception;
 	public Patient findPatient(Map<?,?> map)throws Exception;
 	public Doctor findDoctor(Map<?,?> map)throws Exception;
 	public Nurse findNurse(Map<?,?> map)throws Exception;

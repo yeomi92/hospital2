@@ -27,7 +27,7 @@ $(function(){
 		goPage('${context.path}/board/list');
 	});
 	commonGnb.find('li:nth-child(4)').click(function(){
-		goPage('${context.path}/patient/join');
+		goPage('${context.path}/join');
 	});
 	commonGnb.find('li:nth-child(5)').click(function(){
 		goPage('${context.path}/login');

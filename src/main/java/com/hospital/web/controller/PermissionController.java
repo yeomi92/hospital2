@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.hospital.web.domain.Info;
 import com.hospital.web.domain.Patient;
 import com.hospital.web.domain.Person;
-import com.hospital.web.domain.Schema;
+import com.hospital.web.domain.Enums;
 import com.hospital.web.mapper.Mapper;
 import com.hospital.web.service.CRUD;
 import com.hospital.web.util.Util;
@@ -40,17 +40,16 @@ public class PermissionController {
 		logger.info("PermissionController login() {}", "POST");
 		logger.info("PermissionController login() id,pw: {}", id + pw);
 		logger.info("PermissionController login() group: {}", permission); 
-		
 		Person<?> person = new Person<Info>(new Patient());
 		Patient patient = (Patient) person.getInfo();
 		patient.setId(id);
 		patient.setPass(pw);
 		String movePosition = "";
+		Map<String, String> map= new HashMap<>();
 		switch (permission) {
 		case "patient":
-			Map<String, String> map= new HashMap<>();
 			map.put("group", patient.getGroup());
-			map.put("key", Schema.PATIENT.getName());
+			map.put("key", Enums.PATIENT.getName());
 			map.put("value", id);
 			logger.info("key, group, value {}", map.get("key")+map.get("group")+map.get("value"));
 			CRUD.Service ex = new CRUD.Service() {
@@ -78,15 +77,9 @@ public class PermissionController {
 					logger.info("DB RESULT: {}", "Success");
 					session.setAttribute("permission", patient);
 					String[] getInfo = Util.getInfo(patient.getJumin());
-					model.addAttribute("patient", patient);
-					model.addAttribute("name", patient.getName());
-					model.addAttribute("address", patient.getAddr());
-					model.addAttribute("email", patient.getEmail());
-					model.addAttribute("phone", patient.getPhone());
-					model.addAttribute("job", patient.getJob());
+					model.addAttribute("user", patient);
 					model.addAttribute("age", getInfo[0]);
 					model.addAttribute("birth", getInfo[1]);
-					model.addAttribute("gender", patient.getGen());
 					logger.info("DB RESULT: {}", patient);
 					movePosition = "patient:patient/detail";
 				} else {

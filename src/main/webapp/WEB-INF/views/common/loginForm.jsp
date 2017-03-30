@@ -59,8 +59,8 @@ $(function(){
 	tab.find('tr:nth-child(9) td:nth-child(1)').css('font-size','10px').css('color','#254391');
 	tab.find('tr:nth-child(9) td:nth-child(2)').css('height','20px').css('color','#254391');
 	$('#loginForm input[value=로그인]').click(function(event){
-	var permission=$loginForm.find(':radio[name="permission"]:checked').val();
-	alert('permission:'+permission);
+		var permission=$loginForm.find(':radio[name="permission"]:checked').val();
+		alert('permission:'+permission);
 		$loginForm.attr("action","${context.path}/"+permission+"/login");
 		$loginForm.attr("method","post");
 		var idVal=tab.find('input[name=id]').val();

@@ -13,9 +13,9 @@
                   <tr>
                         <td style="width: 60px" rowspan="5"><span style="font-size: 20px">내<br>정<br>보</span></td>
                         <td style="width: 100px">이름</td>
-                        <td style="width: 150px">${name}</td>
+                        <td style="width: 150px">${user.name}</td>
                         <td style="width: 100px">직업</td>
-                        <td style="width: 150px">${job}</td>
+                        <td style="width: 150px">${user.job}</td>
                   </tr>
                   <tr>
                         <td>생년월일</td>
@@ -25,19 +25,19 @@
                   </tr>
                   <tr>
                         <td>성별</td>
-                        <td>${gender}</td>
+                        <td>${user.gen}</td>
                         <td>나이/몸무게</td>
                         <td>${age}</td>
                   </tr>
                   <tr>
                         <td>전화번호</td>
-                        <td>${phone}</td>
+                        <td>${user.phone}</td>
                         <td>혈액형</td>
                         <td>AB</td>
                   </tr>
                   <tr>
                         <td>주소</td>
-                        <td>${address}</td>
+                        <td>${user.addr}</td>
                         <td>주치의</td>
                         <td><a onclick="docDetail()" href="#">한석규</a></td>
                   </tr>

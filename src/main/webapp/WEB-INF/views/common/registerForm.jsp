@@ -4,6 +4,13 @@
 		<table>
 			<tr>
 				<td>
+					<input type="radio" name="type" value="patient" checked> 고객
+					<input type="radio" name="type" value="doctor"> 의사
+					<input type="radio" name="type" value="nurse"> 간호사
+				</td>
+			</tr>
+			<tr>
+				<td>
 					<font size="2">담당의사&담당간호사</font>
 					<select name="doctor">
 						<option value="" selected>의사 선택</option>
@@ -153,9 +160,10 @@ $(function(){
 	var $registerForm=$('#registerForm');
 	var tab=$registerForm.find('table');
 	$('input[name=register]').click(function(){
-		$registerForm.attr('action','${context}/patient.do');
+		var type=$registerForm.find(':radio[name="type"]:checked').val();
+		$registerForm.attr('action','${context.path}/register/'+type);
 		$registerForm.attr('method','post');
-		alert('전송직전');
+		alert('전송직전'+type);
 		$registerForm.submit();
 	});
 	

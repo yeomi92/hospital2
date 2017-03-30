@@ -130,7 +130,11 @@
 		where ${key}=#{value}
 	</update>
 	
-	
+	<delete id="delete" parameterType="hashMap">
+		DELETE
+		FROM ${group}
+		WHERE ${key} = ${value}
+	</delete>
 	
 	
 	

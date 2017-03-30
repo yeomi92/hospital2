@@ -15,8 +15,8 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
-	<context:annotation-config/> <!-- 객체이름: 메소드이름  => 객체.메소드() 으로 생각하면 된다.--> <!-- 만든다 -->
-	<context:component-scan base-package="com.hospital.web"/> <!-- 저장한다 -->
+	<context:annotation-config/> <!-- 객체이름: 메소드이름  => 객체.메소드() 으로 생각하면 된다.--> <!--context객체가 만든다 -->
+	<context:component-scan base-package="com.hospital.web"/> <!--context객체가 저장한다 -->
 	<mvc:annotation-driven />
 	<!-- 다른 곳에 갈 필요가 없다. 그래서 com.hospital.web.mapper라고 지정 -->
 	<mybatis-spring:scan base-package="com.hospital.web.mapper"/>
