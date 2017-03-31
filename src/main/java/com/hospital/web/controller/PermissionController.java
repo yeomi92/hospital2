@@ -21,7 +21,7 @@ import com.hospital.web.domain.Patient;
 import com.hospital.web.domain.Person;
 import com.hospital.web.domain.Enums;
 import com.hospital.web.mapper.Mapper;
-import com.hospital.web.service.CRUD;
+import com.hospital.web.service.ReadService;
 import com.hospital.web.util.Util;
 
 @Controller
@@ -49,30 +49,33 @@ public class PermissionController {
 		switch (permission) {
 		case "patient":
 			map.put("group", patient.getGroup());
-			map.put("key", Enums.PATIENT.getName());
+			map.put("key", Enums.PATIENT.val());
 			map.put("value", id);
 			logger.info("key, group, value {}", map.get("key")+map.get("group")+map.get("value"));
-			CRUD.Service ex = new CRUD.Service() {
+			
+			ReadService exist2=new ReadService() {
 				@Override
-				public Object execute(Object o) throws Exception {
-					logger.info("--------------ID ?  {} ---------", o);
+				public Object execute(Map<?, ?> map) throws Exception {
 					return mapper.exist(map);
 				}
 			};
-			Integer count = (Integer) ex.execute(id);
+			
+			
+			//Lambda
+			ReadService exist=(paramMap)->mapper.exist(paramMap);
+			Integer count = (Integer) exist.execute(map);
+			
 			logger.info("ID Exist?  {}", count);
 			if (count == 0) {
 				logger.info("DB RESULT: {}", "ID not exist");
 				movePosition = "public:patient/loginForm";
 			} else {
 				logger.info("DB RESULT: {}", "ID exist");
-				CRUD.Service login = new CRUD.Service() {
-					@Override
-					public Object execute(Object o) throws Exception {	
-						return mapper.findPatient(map);
-					}
-				};
-				patient = (Patient) login.execute(patient);
+				
+				//Lambda
+				ReadService login=(paramMap)->mapper.findPatient(paramMap);
+				patient = (Patient) login.execute(map);
+				
 				if (patient.getPass().equals(pw)) {
 					logger.info("DB RESULT: {}", "Success");
 					session.setAttribute("permission", patient);
