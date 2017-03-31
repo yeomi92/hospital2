@@ -20,7 +20,6 @@ $(function(){
 	//commonGnb.find('ul').addClass('index_gnb');
 	//commonGab.find('li').addClass('index_gnb_index');
 	commonGnb.find('li:nth-child(1)').click(function(){/* 객체.메서드  근데 여기서 메서드의 파라미터로 메서드를 던졌다. 그래서 이 메서드는 객체로 던진 것이다.(일급객체) */
-		alert('home');
 		goPage('${context.path}/home');
 	});
 	commonGnb.find('li:nth-child(2)').click(function(){/* 콜백함수 */

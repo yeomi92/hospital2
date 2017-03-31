@@ -1,17 +1,16 @@
 package com.hospital.web.domain;
 
 import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 
+@Component
 interface Orderable{
 	public Command process(Map<?,?>map);
 }
-@Qualifier("command") @Lazy
+@Component @Lazy
 public class Command implements Orderable{
 	Map<?, ?> map;
-
 	public Command(Map<?,?> map) {
 		this.map = map;
 	}
