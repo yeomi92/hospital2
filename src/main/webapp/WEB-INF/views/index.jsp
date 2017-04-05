@@ -68,13 +68,11 @@
 					<li><a href="#">Link</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">Dropdown <span class="caret"></span></a>
+						aria-expanded="false">OOP<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="#">Action</a></li>
-							<li><a href="#">Another action</a></li>
-							<li><a href="#">Something else here</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#">Separated link</a></li>
+							<li><a id="Encap" href="#">Encapsulation</a></li>
+							<li><a id="Inherit" href="#">Inheritance</a></li>
+							<li><a id="poly" href="#">Polymorphism</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -92,198 +90,238 @@
 
 </body>
 <script>
-	var body = $('body');
-	var div = '<div/>'
-	var wrapper = $('#wrapper');
-	var aButton = $('<a id="aButton" href="#" class="btn btn-primary" role="button">Button</a>');
-	var bButton = $('<button id="bButton" type="button" class="btn btn-default">Button</button>');
-	var inputText = $('<input id="inputText" type="text" class="form-control" placeholder="example" aria-describedby="basic-addon1">');
-	var inputText2 = $('<input id="inputText2" type="text" class="form-control" placeholder="example" aria-describedby="basic-addon1">');
-	var divAlert = $('<div class="alert alert-danger" role="alert">example</div>')
+	var app=app||{}; //namespace pattern
+	app.context=(function(){})(); //declaration 보다 먼저 실행
+	app.component=(function(){
+		return{
+			body: $('body'),
+		    wrapper: $('#wrapper'),
+		    div: function(id){
+		    	return $(id);
+		    },
+		    aButton: function(id,type){
+		    	return $('<a id="'+id+'" href="#" class="btn '+type+'" role="button">Button</a>');
+		    },
+		    bButton: function(id,type){
+		    	return $('<button id="'+id+'" type="button" class="btn '+type+'">Button</button>');
+		    },
+		    inputText: function(id){
+		    	return $('<input id="'+id+'" type="text" class="form-control" placeholder="example" aria-describedby="basic-addon1">');
+		    },
+		    divAlert: function(){
+		    	return $('<div class="alert alert-danger" role="alert">example</div>');
+		    },
+		    seriesMenu: function(){
+		    	return  $('<ul class="list-group">'
+		    			+ '<li id="aSeries" class="list-group-item"><a href="#">등차수열</a></li>'
+		    			+ '<li id="swSeries" class="list-group-item"><a href="#">스위치수열</a></li>'
+		    			+ '<li id="dSeries" class="list-group-item"><a href="#">계차수열</a></li>'
+		    			+ '<li id="factorial" class="list-group-item"><a href="#">팩토리얼수열</a></li>'
+		    			+ '<li id="fibonaci" class="list-group-item"><a href="#">피보나치수열</a></li></ul>');
+		    },
+		    arrayMenu: function(){
+		    	return  $('<ul class="list-group">'
+		    			+ '<li id="selectSort" class="list-group-item"><a href="#">선택정렬</a></li>'
+						+ '<li id="bubbleSort" class="list-group-item"><a href="#">버블정렬</a></li>'
+						+ '<li id="insertSort" class="list-group-item"><a href="#">삽입정렬</a></li></ul>');
+		    },
+		    oopMenu: function(){
+		    	return $('<ul class="list-group">'
+		    			+ '<li id="selectSort" class="list-group-item"><a href="#">캡슐화</a></li>'
+		    			+ '<li id="bubbleSort" class="list-group-item"><a href="#">상속</a></li>'
+		    			+ '<li id="insertSort" class="list-group-item"><a href="#">다형성</a></li></ul>');
+		    }		
+		};
+	})();
+	app.algorithm=(function(){
+		var aSeries=function(inputVal) {
+			$('#tableRight').empty();
+			var arr=inputVal.split(" ");
+			var start=arr[0]*1;
+			var limit=arr[1]*1;
+			var diff=arr[2]*1;
+			console.log('inputVal:'+start+", "+limit+", "+diff);
+			var result = 0;
+			var resultStr="";
+			for (i=start;i<=limit;i+=diff) {
+				result += i;
+				resultStr+=i+(((i+diff)>limit)?"=":"+");
+			}
+			return resultStr+result;
+		};
+		return {
+			aSeries: aSeries,
+			series: function(){
+				$('#series').on('click',function() {
+					app.component.wrapper.empty();
+					$('#tableLeft').empty();
+					$('#tableRight').empty();
+					table.appendTo(app.component.wrapper);
+					app.component.seriesMenu().appendTo($('#tableLeft'));
+					app.component.inputText('inputText').attr('placeholder', 'start limit 공차 입력').appendTo($('#tableRight'));
+					app.component.aButton('aButton','btn-primary').html('등차수열의 합').appendTo($('#tableRight')).on('click',function() {
+						console.log($('#inputText').val());
+						var result=app.algorithm.aSeries($('#inputText').val());
+						app.component.divAlert().html('등차수열 결과<br>'+result).appendTo($('#tableRight'));
+					});
+					$('#aSeries').on('click',function() {
+						$('#tableRight').empty();
+						app.component.inputText('inputText').attr('placeholder', 'start limit 공차 입력').appendTo($('#tableRight'));
+						app.component.aButton('aButton','btn-primary').html('등차수열의 합').appendTo($('#tableRight')).on('click', function() {aSeries($('#inputText').val());});
+					});
+					$('#swSeries').on('click',function() {
+						$('#tableRight').empty();
+						app.component.inputText('inputText').attr('placeholder', 'limit').appendTo($('#tableRight'));
+						app.component.aButton('aButton','btn-primary').html('스위치수열의 합').appendTo($('#tableRight')).on('click', function() {swSeries($('#inputText').val());});
+					});
+					$('#dSeries').on('click',function() {
+						$('#tableRight').empty();
+						app.component.inputText('inputText').attr('placeholder', 'limit').appendTo($('#tableRight'));
+						app.component.aButton('aButton','btn-primary').html('계차수열의 합').appendTo($('#tableRight')).on('click', function() {dSeries($('#inputText').val());});
+					});
+					$('#factorial').on('click',function() {
+						$('#tableRight').empty();
+						app.component.inputText('inputText').attr('placeholder', 'limit').appendTo($('#tableRight'));
+						app.component.aButton('aButton','btn-primary').html('팩토리얼수열의 합').appendTo($('#tableRight')).on('click',function() {factorial($('#inputText').val());});
+					});
+					$('#fibonaci').on('click',function() {
+						$('#tableRight').empty();
+						app.component.inputText('inputText').attr('placeholder', 'limit').appendTo($('#tableRight'));
+						app.component.aButton('aButton','btn-primary').html('피보나치수열의 합').appendTo($('#tableRight')).on('click',function() {fibonaci($('#inputText').val());});
+					});
+				});
+			},
+			arr: function(){
+				$('#array').on('click',function() {
+					app.component.wrapper.empty();
+					var tableLeft=$('#tableLeft');
+					var tableRight=$('#tableRight');				
+					$('#tableLeft').empty();
+					$('#tableRight').empty();
+					table.appendTo(app.component.wrapper);
+					app.component.arrayMenu().appendTo(tableLeft);
+					app.component.inputText('inputText').attr('placeholder', '10개 숫자').appendTo(tableRight);
+					app.component.inputText('inputText2').attr('placeholder', '회전수').appendTo(tableRight);
+					app.component.aButton('aButton','btn-primary').html('선택정렬').appendTo(tableRight).on('click',function() {selectSort(inputText.val(), inputText2.val());});
+					$('#selectSort').on('click',function() {
+						tableRight.empty();
+						app.component.inputText('inputText').attr('placeholder', '10개의 숫자값을 입력하세요.').appendTo(tableRight);
+						app.component.inputText('inputText2').attr('placeholder', '회전수').appendTo(tableRight);
+						app.component.aButton('aButton','btn-primary').html('선택정렬').appendTo(tableRight).on('click',function() {selectSort(inputText.val(), inputText2.val());});
+					});
+					$('#bubbleSort').on('click',function() {
+						tableRight.empty();
+						app.component.inputText('inputText').attr('placeholder', '10개의 숫자값을 입력하세요.').appendTo(tableRight);
+						app.component.inputText('inputText2').attr('placeholder', '회전수').appendTo(tableRight);
+						app.component.aButton('aButton','btn-primary').html('버블정렬').appendTo(tableRight).on('click',function() {bubbleSort(inputText.val(), inputText2.val());});
+					});
+					$('#insertSort').on('click',function() {
+						tableRight.empty();
+						app.component.inputText('inputText').attr('placeholder', '10개의 숫자값을 입력하세요.').appendTo(tableRight);
+						app.component.aButton('aButton','btn-primary').html('삽입정렬').appendTo(tableRight).on('click', function() {inserSort(inputText.val());});
+					});
+				});
+			},
+			matrix: function(){
+				$('#matrix').on('click', function() {
+					app.component.wrapper.empty();
+					app.component.inputText('inputText').attr('placeholder', 'limit').appendTo(wrapper);
+					app.component.aButton('aButton','btn-primary').html('매트릭스').appendTo(wrapper).on('click', function() {
+						aSeries(inputText.val());
+					});
+				});
+			},
+			math: function(){
+				$('#math').on('click', function() {
+					app.component.wrapper.empty();
+					app.component.inputText('inputText').attr('placeholder', 'limit').appendTo(wrapper);
+					app.component.aButton('aButton','btn-primary').html('math').appendTo(wrapper).on('click', function() {
+						aSeries(inputText.val());
+					});
+				});
+			},
+			appl: function(){
+				$('#application').on('click', function() {
+					app.component.wrapper.empty();
+					app.component.inputText('inputText').attr('placeholder', 'limit').appendTo(wrapper);
+					app.component.aButton('aButton','btn-primary').html('응용').appendTo(wrapper).on('click', function() {
+						aSeries(inputText.val());
+					});
+				});
+			}
+		};
+	})();
+	app.oop=(function(){
+		return {
+			encap: function(){
+				$('#Encap').on('click',function(){
+					app.component.wrapper.empty();
+					$('#tableLeft').empty();
+					$('#tableRight').empty();
+					table.appendTo(app.component.wrapper);
+					app.component.oopMenu().appendTo($('#tableLeft'));
+					app.component.inputText('inputText1').attr('placeholder','이름').appendTo($('#tableRight'));
+					app.component.inputText('inputText2').attr('placeholder','나이').appendTo($('#tableRight'));
+					app.component.inputText('inputText3').attr('placeholder','성별').appendTo($('#tableRight'));
+					app.component.inputText('inputText4').attr('placeholder','직업').appendTo($('#tableRight'));
+					app.component.aButton('aButton','btn-primary').html('완료').appendTo($('#tableRight')).on('click',function(){
+						app.person.setName($('#inputText1').val());
+						app.person.setAge($('#inputText2').val());
+						app.person.setGen($('#inputText3').val());
+						app.person.setJob($('#inputText4').val());
+						var spec=app.person.toString();
+						$('#tableRight').empty();
+						app.component.divAlert().html('정보<br>'+spec).appendTo($('#tableRight'));
+						
+					});
+				});
+			},
+			inherit: function(){},
+			poly: function(){}
+		};
+	})();
 	var table =  $('<div style="width:100%"><table style="margin: 0 auto; width:500px; height:300px; border-collapse: collapse; border: 1px solid black;"><tr><td id="tableLeft" style="width:50%; border: 1px solid black;"></td><td id="tableRight"></td></tr></table></div>');
-	var seriesMenu = $('<ul class="list-group">'
-			+ '<li id="aSeries" class="list-group-item"><a href="#">등차수열</a></li>'
-			+ '<li id="swSeries" class="list-group-item"><a href="#">스위치수열</a></li>'
-			+ '<li id="dSeries" class="list-group-item"><a href="#">계차수열</a></li>'
-			+ '<li id="factorial" class="list-group-item"><a href="#">팩토리얼수열</a></li>'
-			+ '<li id="fibonaci" class="list-group-item"><a href="#">피보나치수열</a></li></ul>');
-	var arrayMenu = $('<ul class="list-group">'
-			+ '<li id="selectSort" class="list-group-item"><a href="#">선택정렬</a></li>'
-			+ '<li id="bubbleSort" class="list-group-item"><a href="#">버블정렬</a></li>'
-			+ '<li id="insertSort" class="list-group-item"><a href="#">삽입정렬</a></li></ul>');
-
-	wrapper.empty();
-	inputText.attr('placeholder', 'input user name').appendTo(wrapper);
-	aButton.html('click').appendTo(wrapper).on('click', function() {
+	
+	app.component.wrapper.empty();
+	app.component.inputText('inputText').attr('placeholder', 'input user name').appendTo(app.component.wrapper);
+	app.component.aButton('aButton','btn-primary').html('click').appendTo(app.component.wrapper).on('click', function() {
 		alert('test');
-		var name = inputText.val();
-		wrapper.empty();
-		divAlert.html('Hello ' + name + '!!').appendTo(wrapper);
+		var name = $('#inputText').val();
+		app.component.wrapper.empty();
+		app.component.divAlert.html('Hello ' + name + '!!').appendTo(app.component.wrapper);
 	});
+	app.algorithm.series();
+	app.oop.encap();
 
-	wrapper.empty();
-	$('#series').on(
-			'click',
-			function() {
-				$('#tableLeft').empty();
-				$('#tableRight').empty();
-				table.appendTo(wrapper);
-				seriesMenu.appendTo($('#tableLeft'));
-				inputText.attr('placeholder', 'limit').appendTo(
-						$('#tableRight'));
-				aButton.html('등차수열의 합').appendTo($('#tableRight')).on('click',
-						function() {
-							aSeries(inputText.val());
-						});
-				$('#aSeries').on(
-						'click',
-						function() {
-							$('#tableRight').empty();
-							inputText.attr('placeholder', 'limit').appendTo(
-									$('#tableRight'));
-							aButton.html('등차수열의 합').appendTo($('#tableRight'))
-									.on('click', function() {
-										aSeries(inputText.val());
-									});
-						});
-				$('#swSeries').on(
-						'click',
-						function() {
-							$('#tableRight').empty();
-							inputText.attr('placeholder', 'limit').appendTo(
-									$('#tableRight'));
-							aButton.html('스위치수열의 합').appendTo($('#tableRight'))
-									.on('click', function() {
-										swSeries(inputText.val());
-									});
-						});
-				$('#dSeries').on(
-						'click',
-						function() {
-							$('#tableRight').empty();
-							inputText.attr('placeholder', 'limit').appendTo(
-									$('#tableRight'));
-							aButton.html('계차수열의 합').appendTo($('#tableRight'))
-									.on('click', function() {
-										dSeries(inputText.val());
-									});
-						});
-				$('#factorial').on(
-						'click',
-						function() {
-							$('#tableRight').empty();
-							inputText.attr('placeholder', 'limit').appendTo(
-									$('#tableRight'));
-							aButton.html('팩토리얼수열의 합')
-									.appendTo($('#tableRight')).on('click',
-											function() {
-												factorial(inputText.val());
-											});
-						});
-				$('#fibonaci').on(
-						'click',
-						function() {
-							$('#tableRight').empty();
-							inputText.attr('placeholder', 'limit').appendTo(
-									$('#tableRight'));
-							aButton.html('피보나치수열의 합')
-									.appendTo($('#tableRight')).on('click',
-											function() {
-												fibonaci(inputText.val());
-											});
-						});
-			});
+	
 
-	wrapper.empty();
-	$('#array').on(
-			'click',
-			function() {
-				$('#tableLeft').empty();
-				$('#tableRight').empty();
-				table.appendTo(wrapper);
-				arrayMenu.appendTo($('#tableLeft'));
-				inputText.attr('placeholder', '10개 숫자').appendTo(
-						$('#tableRight'));
-				inputText2.attr('placeholder', '회전수')
-						.appendTo($('#tableRight'));
-				aButton.html('선택정렬').appendTo($('#tableRight')).on('click',
-						function() {
-							selectSort(inputText.val(), inputText2.val());
-						});
-				$('#selectSort').on(
-						'click',
-						function() {
-							$('#tableRight').empty();
-							inputText.attr('placeholder', '10개의 숫자값을 입력하세요.')
-									.appendTo($('#tableRight'));
-							inputText2.attr('placeholder', '회전수').appendTo(
-									$('#tableRight'));
-							aButton.html('선택정렬').appendTo($('#tableRight')).on(
-									'click',
-									function() {
-										selectSort(inputText.val(), inputText2
-												.val());
-									});
-						});
-				$('#bubbleSort').on(
-						'click',
-						function() {
-							$('#tableRight').empty();
-							inputText.attr('placeholder', '10개의 숫자값을 입력하세요.')
-									.appendTo($('#tableRight'));
-							inputText2.attr('placeholder', '회전수').appendTo(
-									$('#tableRight'));
-							aButton.html('버블정렬').appendTo($('#tableRight')).on(
-									'click',
-									function() {
-										bubbleSort(inputText.val(), inputText2
-												.val());
-									});
-						});
-				$('#insertSort').on(
-						'click',
-						function() {
-							$('#tableRight').empty();
-							inputText.attr('placeholder', '10개의 숫자값을 입력하세요.')
-									.appendTo($('#tableRight'));
-							aButton.html('삽입정렬').appendTo($('#tableRight')).on(
-									'click', function() {
-										inserSort(inputText.val());
-									});
-						});
-			});
+	
 
-	wrapper.empty();
-	$('#matrix').on('click', function() {
-		inputText.attr('placeholder', 'limit').appendTo(wrapper);
-		aButton.html('매트릭스').appendTo(wrapper).on('click', function() {
-			aSeries(inputText.val());
-		});
-	});
+	
 
-	wrapper.empty();
-	$('#math').on('click', function() {
-		inputText.attr('placeholder', 'limit').appendTo(wrapper);
-		aButton.html('math').appendTo(wrapper).on('click', function() {
-			aSeries(inputText.val());
-		});
-	});
+	
 
-	wrapper.empty();
-	$('#application').on('click', function() {
-		inputText.attr('placeholder', 'limit').appendTo(wrapper);
-		aButton.html('응용').appendTo(wrapper).on('click', function() {
-			aSeries(inputText.val());
-		});
-	});
+	
+	
+	
 
-	function aSeries(limit) {
+	/*
+	알고리즘 클래스
+	*/
+	function aSeries(inputVal) {
 		$('#tableRight').empty();
+		var arr=inputVal.split(" ");
+		var start=arr[0]*1;
+		var limit=arr[1]*1;
+		var diff=arr[2]*1;
+		console.log('inputVal:'+start+", "+limit+", "+diff);
 		var result = 0;
-		for (i = 0; i <= limit; i = i + 1) {
+		var resultStr="";
+		for (i=start;i<=limit;i+=diff) {
 			result += i;
+			resultStr+=i+(((i+diff)>limit)?"=":"+");
 		}
-		divAlert.html('등차수열 결과: ' + result).appendTo($('#tableRight'));
+		divAlert.html('등차수열 결과<br>'+resultStr+result).appendTo($('#tableRight'));
 	}
 	function swSeries(limit) {
 		$('#tableRight').empty();
@@ -399,5 +437,43 @@
 		}
 		divAlert.html('삽입정렬 결과<br>' + result).appendTo($('#tableRight'));
 	}
+	/*
+		객체지향적 자바 스크립트
+		js객체생성법 
+		1. constructor
+		2. declaration
+		3. expression
+		
+	*/
+	app.person=(function(){
+		var _name,_age,_gen,_job;
+		return {
+			setName: function(name){this._name=name},
+			setAge:function(age){this._age=age},
+			setGen: function(gen){this._gen=gen},
+			setJob: function(job){this._job=job},
+			getName: function(){return this._name;},
+			getAge: function(){return this._age;},
+			getGen: function(){return this._gen;},
+			getJob: function(){return this._job;},
+			toString: function(){
+				return this._name+", "+this._age+", "+this._gen+", "+this._job;
+			}
+		};
+	})();
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 </script>
 </html>
