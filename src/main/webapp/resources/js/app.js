@@ -15,7 +15,7 @@ app.context=(function(){
 	};
 	var onCreate=function(){
 		setContentView();
-		app.algorithm.series();
+		app.algorithm.init();
 		app.component.init();
 		app.oop.init();
 	};
@@ -53,7 +53,7 @@ app.session=(function(){
 app.util=(function(){})();
 
 series=(function(){})();
-
+arr=(function(){})();
 aSeries=function(){};
 
 //algorithm
@@ -99,7 +99,6 @@ app.algorithm=(function(){
 			sw *= -1;
 		}
 		return result;
-		
 	};
 	/*계차수열*/
 	var dSeries=function(limit) {
@@ -142,16 +141,12 @@ app.algorithm=(function(){
 		return result;
 	};
 	/*선택정렬*/
-	var selectSort=function(limit, n) {
-		$('#tableRight').empty();
-		var data = [];
+	var selectSort=function(data,n) {
 		var temp = 0;
 		var result = "";
-		for (i = 0; i <= 9; i++) {
-			data[i] = limit.split(" ")[i] * 1;
-		}
-		for (i = 0; i < n; i++) {
-			for (j = i + 1; j <= 9; j++) {
+		console.log('n: '+n);
+		for (i = 0; i < n*1; i++) {
+			for (j = i + 1; j < 6; j++) {
 				if (data[i] > data[j]) {
 					temp = data[i];
 					data[i] = data[j];
@@ -159,22 +154,15 @@ app.algorithm=(function(){
 				}
 			}
 		}
-		for (i = 0; i <= 9; i++) {
-			result += data[i] + " ";
-		}
-		divAlert.html('선택정렬 결과<br>' + result).appendTo($('#tableRight'));
-	}
+		return data;
+	};
 	/*버블정렬*/
-	var bubbleSort=function(limit, n) {
-		$('#tableRight').empty();
-		var data = [];
+	var bubbleSort=function(data,n) {
 		var temp = 0;
 		var result = "";
-		for (i = 0; i <= 9; i++) {
-			data[i] = limit.split(" ")[i] * 1;
-		}
-		for (k = 0; k < n; k++) {
-			for (i = 0; i <= 8; i++) {
+		console.log('n: '+n);
+		for (k = 0; k < n*1; k++) {
+			for (i = 0; i <5; i++) {
 				if (data[i] > data[i + 1]) {
 					temp = data[i];
 					data[i] = data[i + 1];
@@ -182,21 +170,14 @@ app.algorithm=(function(){
 				}
 			}
 		}
-		for (i = 0; i <= 9; i++) {
-			result += data[i] + " ";
-		}
-		divAlert.html('버블정렬 결과<br>' + result).appendTo($('#tableRight'));
-	}
+		return data;
+	};
 	/*삽입정렬*/
-	var inserSort=function(limit) {
-		$('#tableRight').empty();
-		var data = [];
+	var insertSort=function(data,n) {
 		var temp = 0;
 		var result = "";
-		for (i = 0; i <= 9; i++) {
-			data[i] = limit.split(" ")[i] * 1;
-		}
-		for (i = 1; i < 10; i++) {
+		console.log('n: '+n);
+		for (i = 1; i < n*1+1; i++) {
 			for (k = 0; k <= i; k++) {
 				if (data[i] < data[k]) {
 					temp = data[i];
@@ -205,19 +186,26 @@ app.algorithm=(function(){
 				}
 			}
 		}
-		for (i = 0; i <= 9; i++) {
-			result += data[i] + " ";
+		return data;
+	};
+	var rank=function(data){
+		var result="";
+		var rank=[1,1,1,1,1,1];
+		for(i=0;i<data.length;i++){
+			for(k=0;k<data.length;k++){
+				if(data[i]<data[k]){
+					rank[i]++;
+				}
+			}
 		}
-		divAlert.html('삽입정렬 결과<br>' + result).appendTo($('#tableRight'));
-	}
+		return rank;
+	};
 	var series=function(){
 		$('#series').on('click',function() {
-			alert('test');
 			var wrapper=app.component.getWrapper();
 			wrapper.empty();
 			wrapper.append(app.algorithm.TABLE);
 			$('#tableLeft').html(app.algorithm.SERIES_MENU);
-			console.log('tableLeft: '+$('#tableLeft'));
 			app.component.inputText('inputText').attr('placeholder', 'start limit 공차 입력').appendTo($('#tableRight'));
 			app.component.aButton('aButton','btn-primary').html('등차수열의 합').appendTo($('#tableRight')).on('click',function() {
 				console.log($('#inputText').val());
@@ -265,47 +253,168 @@ app.algorithm=(function(){
 				});
 			});
 		});
-	};
+	};	
 	var arr=function(){
 		$('#array').on('click',function() {
-			alert('arr');
 			var wrapper=app.component.getWrapper();
 			wrapper.empty();
-			wrapper.append(app.algorithm.TABLE);
-			var tableLeft=$('#tableLeft');
-			var tableRight=$('#tableRight');				
-			$('#tableLeft').empty();
-			$('#tableRight').empty();
-			app.algorithm.ARRAY_MENU().appendTo(tableLeft);
-			app.component.inputText('inputText').attr('placeholder', '10개 숫자').appendTo(tableRight);
-			app.component.inputText('inputText2').attr('placeholder', '회전수').appendTo(tableRight);
-			app.component.aButton('aButton','btn-primary').html('선택정렬').appendTo(tableRight).on('click',function() {selectSort($('#inputText').val(), $('#inputText2').val());});
+	         wrapper.append(app.algorithm.TABLE);
+	         var arr = [{id: 'selectSort', txt:'선택정렬'},
+	            {id: 'bubbleSort', txt:'버블정렬'},
+	            {id: 'insertSort', txt:'삽입정렬'},
+	            {id: 'ranking', txt:'석차구하기'},
+	            {id: 'binSearch', txt:'이분검색'},
+	            {id: 'merge', txt:'병합'},
+	            {id: 'stack', txt:'스택'}];
+	         var str = '';
+	         $.each(arr, function(i,j){
+	            str+='<li id="' + j.id + '" class="list-group-item"><a href="#">' + j.txt + '</a></li>';
+	         });
+	         var tableLeft = $('#tableLeft');
+	         tableLeft.empty();
+	         tableLeft.html(str);
+	         var tableRight = $('#tableRight');   
+	         tableRight.empty();
+	         var arr = randomGen();
+	            tableRight.html(app.component.horList(arr,'default'));
+	            app.component.inputText('inputText').attr('placeholder', '정렬 회전 수 입력').appendTo($('#tableRight'));
+				app.component.aButton('aButton','btn-primary').html('선택정렬').appendTo(tableRight).on('click',function() {
+					var result=selectSort(arr);
+					tableRight.append(app.component.horList(result,'default'));
+				});
 			$('#selectSort').on('click',function() {
 				tableRight.empty();
-				app.component.inputText('inputText').attr('placeholder', '10개의 숫자값을 입력하세요.').appendTo(tableRight);
-				app.component.inputText('inputText2').attr('placeholder', '회전수').appendTo(tableRight);
-				app.component.aButton('aButton','btn-primary').html('선택정렬').appendTo(tableRight).on('click',function() {selectSort($('#inputText').val(), $('#inputText2').val());});
+				var arr = randomGen();
+	            tableRight.html(app.component.horList(arr,'default'));
+	            app.component.inputText('inputText').attr('placeholder', '정렬 회전 수 입력').appendTo($('#tableRight'));
+				app.component.aButton('aButton','btn-primary').html('선택정렬').appendTo(tableRight).on('click',function() {
+					var result=selectSort(arr,$('#inputText').val());
+					$('#aButton').remove();
+					$('#inputText').remove();
+					tableRight.append(app.component.horList(result,'default'));
+				});
 			});
 			$('#bubbleSort').on('click',function() {
 				tableRight.empty();
-				app.component.inputText('inputText').attr('placeholder', '10개의 숫자값을 입력하세요.').appendTo(tableRight);
-				app.component.inputText('inputText2').attr('placeholder', '회전수').appendTo(tableRight);
-				app.component.aButton('aButton','btn-primary').html('버블정렬').appendTo(tableRight).on('click',function() {bubbleSort($('#inputText').val(), $('#inputText2').val());});
+				var arr = randomGen();
+	            tableRight.html(app.component.horList(arr,'default'));
+	            app.component.inputText('inputText').attr('placeholder', '정렬 회전 수 입력').appendTo($('#tableRight'));
+				app.component.aButton('aButton','btn-primary').html('버블정렬').appendTo(tableRight).on('click',function() {
+					var result=bubbleSort(arr,$('#inputText').val());
+					tableRight.append(app.component.horList(result,'default'));
+				});
 			});
 			$('#insertSort').on('click',function() {
 				tableRight.empty();
-				app.component.inputText('inputText').attr('placeholder', '10개의 숫자값을 입력하세요.').appendTo(tableRight);
-				app.component.aButton('aButton','btn-primary').html('삽입정렬').appendTo(tableRight).on('click', function() {inserSort($('#inputText').val());});
+				var arr = randomGen();
+	            tableRight.html(app.component.horList(arr,'default'));
+	            app.component.inputText('inputText').attr('placeholder', '정렬 회전 수 입력').appendTo($('#tableRight'));
+				app.component.aButton('aButton','btn-primary').html('삽입정렬').appendTo(tableRight).on('click',function() {
+					var result=insertSort(arr,$('#inputText').val());
+					tableRight.append(app.component.horList(result,'default'));
+				});
 			});
+			$('#ranking').on('click',function() {
+				tableRight.empty();
+				var arr = randomGen();
+	            tableRight.html(app.component.horList(arr,'default'));
+				app.component.aButton('aButton','btn-primary').html('석차구하기').appendTo(tableRight).on('click',function() {
+					var result=rank(arr);
+					$('#aButton').remove();
+					tableRight.append(app.component.horList(result,'default'));
+				});
+			});
+		});
+	};
+	
+	var randomGen = function(){
+	    var arr=[];
+	    for(i=0;i<6;i++){
+	       arr[i]=(Math.floor(Math.random()*45)+1);
+	       for(k=i;k>0;k--){
+				if(arr[i]==arr[k-1]){
+					console.log('같으면 들어온다.'+arr[i]+', '+arr[k-1]);
+					i--;
+				}
+	       }
+	    }
+	    return arr;
+	};
+	var horizontalTable = function(arr){
+		var table='';
+		table += '<table style="width:210px; height:280px; border-collapse: collapse; border: 1px solid black; margin: 0 auto"><tbody><tr><td>';
+		$.each(arr, function(i,j){
+		table += '<td>' + arr[i] + '</td>';
+		});
+		table += '</tr></tbody></table>';
+		$('#table td').css('border', '1px solid black');
+		return table;
+	};
+	var basic=function(){
+		$('#basic').on('click',function(){
+			var mtx = new Array(new Array(5), new Array(5),new Array(5), new Array(5),new Array(5));
+			var jason=[
+		        {
+		            a : 1,
+		            b : 2,
+		            c : 3,
+		            d : 4,
+		            e : 5
+		        },
+		        {
+		        	a : 6,
+		            b : 7,
+		            c : 8,
+		            d : 9,
+		            e : 10
+		        },
+		        {
+		        	a : 11,
+		            b : 12,
+		            c : 13,
+		            d : 14,
+		            e : 15
+		        },
+		        {
+		        	a : 16,
+		            b : 17,
+		            c : 18,
+		            d : 19,
+		            e : 20
+		        },
+		        {
+		        	a : 21,
+		            b : 22,
+		            c : 23,
+		            d : 24,
+		            e : 25
+		        }
+		    ]
+			$('#tableRight').html(app.component.panelTable(jason,'Basic','default'));
 		});
 	};
 	var matrix=function(){
 		$('#matrix').on('click', function() {
-			app.component.wrapper.empty();
-			app.component.inputText('inputText').attr('placeholder', 'limit').appendTo(wrapper);
-			app.component.aButton('aButton','btn-primary').html('매트릭스').appendTo(wrapper).on('click', function() {
-				aSeries(inputText.val());
-			});
+			alert('matrix');
+			var wrapper=app.component.getWrapper();
+			wrapper.empty();
+	         wrapper.append(app.algorithm.TABLE);
+	         var arr = [{id: 'basic', txt:'기본 5X5'},
+	            {id: 'zigzag', txt:'지그재그'},
+	            {id: 'diamond', txt:'다이아몬드'},
+	            {id: 'sandGlass', txt:'모래시계'},
+	            {id: 'snail', txt:'달팽이'},
+	            {id: 'magicSquare', txt:'마방진'}];
+	         var str = '';
+	         $.each(arr, function(i,j){ //i: index값, j: 객체값 / jsp는 오버라이딩해서 안쓰는 파라미터가 있더라도 그 자리는 채워줘야한다.
+	            str+='<li id="' + j.id + '" class="list-group-item"><a href="#">' + j.txt + '</a></li>';
+	         });
+	         var tableLeft = $('#tableLeft');
+	         tableLeft.empty();
+	         tableLeft.html(str);
+	         var tableRight = $('#tableRight');   
+	         tableRight.empty();
+	         basic();
 		});
 	};
 	var math=function(){
@@ -336,8 +445,11 @@ app.algorithm=(function(){
 		series: series,
 		selectSort: selectSort,
 		bubbleSort: bubbleSort,
-		inserSort: inserSort,
+		insertSort: insertSort,
+		randomGen: randomGen,
+		horizontalTable: horizontalTable,
 		arr: arr,
+		basic: basic,
 		matrix: matrix,
 		math: math,
 		appl: appl
@@ -443,7 +555,34 @@ app.component=(function(){
 	    },
 	    divAlert: function(type){
 	    	return $('<div class="alert '+type+'" role="alert">example</div>');
-	    }	
+	    },
+	    horList: function(arr,i){
+	    	var type='';
+	    	switch(i){
+	    	case 'default': type='btn-default'; break;
+	    	}
+	    	var list='<div class="btn-group" role="group" aria-label="...">';
+	    	$.each(arr,function(i,j){
+	    		list+='<button id="list-button-"'+i+' type="button" class="btn "'+type+'">'+arr[i]+'</button>';
+	    	});
+	    	list+='</div>';
+	    	return list;
+	    },
+	    panelTable: function(json,txt,type){
+	    	var table=
+	    		'<div class="panel panel-'+type+'">'
+	    		+'<div class="panel-heading">행렬</div>'
+	    		+'<table id="table">'
+	    		+'<tr>'
+	    		+'<th colspan="5">'+txt+'</th>'
+	    		+'</tr>'
+	    		+'<tbody>';
+	    	$.each(json, function(i,j){
+	    		table+='<tr><td style="width:20%">'+j.a+'</td><td style="width:20%">'+j.b+'</td><td style="width:20%">'+j.c+'</td><td style="width:20%">'+j.d+'</td><td style="width:20%">'+j.e+'</td></tr>';
+	    	});
+	    	table+='</tbody></table>';
+	    	return table;
+	    }
 	};
 })();
 app.navi=(function(){})();
