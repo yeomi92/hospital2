@@ -204,52 +204,65 @@ app.algorithm=(function(){
 		$('#series').on('click',function() {
 			var wrapper=app.component.getWrapper();
 			wrapper.empty();
-			wrapper.append(app.algorithm.TABLE);
-			$('#tableLeft').html(app.algorithm.SERIES_MENU);
-			app.component.inputText('inputText').attr('placeholder', 'start limit 공차 입력').appendTo($('#tableRight'));
-			app.component.aButton('aButton','btn-primary').html('등차수열의 합').appendTo($('#tableRight')).on('click',function() {
+	         wrapper.append(app.algorithm.TABLE);
+	         var arr = [{id:'aSeries', txt:'등차수열'},
+	            {id:'swSeries', txt:'스위치수열'},
+	            {id:'dSeries', txt:'계차수열'},
+	            {id:'factorial', txt:'팩토리얼'},
+	            {id:'fibonacci', txt:'피보나치'}];
+	         var str = '';
+	         $.each(arr, function(i,j){
+	            str+='<li id="' + j.id + '" class="list-group-item"><a href="#">' + j.txt + '</a></li>';
+	         });
+	         var tableLeft = $('#tableLeft');
+	         tableLeft.empty();
+	         tableLeft.html(str);
+	         var tableRight = $('#tableRight');   
+	         tableRight.empty();
+			app.component.inputText('inputText').attr('placeholder', 'start limit 공차 입력').appendTo(tableRight);
+			app.component.aButton('aButton','btn-primary').html('등차수열의 합').appendTo(tableRight).on('click',function() {
 				console.log($('#inputText').val());
 				var result=app.algorithm.aSeries($('#inputText').val());
-				app.component.divAlert('alert-primary').html('등차수열 결과<br>'+result).appendTo($('#tableRight'));
+				app.component.divAlert('alert-primary').html('등차수열 결과<br>'+result).appendTo(tableRight);
 			});
 			$('#aSeries').on('click',function() {
 				$('#tableRight').empty();
-				app.component.inputText('inputText').attr('placeholder', 'start limit 공차 입력').appendTo($('#tableRight'));
-				app.component.aButton('aButton','btn-primary').html('등차수열의 합').appendTo($('#tableRight')).on('click', function() {
+				app.component.inputText('inputText').attr('placeholder', 'start limit 공차 입력').appendTo(tableRight);
+				app.component.aButton('aButton','btn-primary').html('등차수열의 합').appendTo(tableRight).on('click', function() {
 					var result=app.algorithm.aSeries($('#inputText').val());
-					app.component.divAlert('alert-primary').html('등차수열 결과<br>'+result).appendTo($('#tableRight'));
+					app.component.divAlert('alert-primary').html('등차수열 결과<br>'+result).appendTo(tableRight);
 				});
 			});
 			$('#swSeries').on('click',function() {
 				$('#tableRight').empty();
-				app.component.inputText('inputText').attr('placeholder', 'limit').appendTo($('#tableRight'));
-				app.component.aButton('aButton','btn-success').html('스위치수열의 합').appendTo($('#tableRight')).on('click', function() {
+				app.component.inputText('inputText').attr('placeholder', 'limit').appendTo(tableRight);
+				app.component.aButton('aButton','btn-success').html('스위치수열의 합').appendTo(tableRight).on('click', function() {
 					var result=app.algorithm.swSeries($('#inputText').val());
-					app.component.divAlert('alert-success').html('스위치수열 결과: ' + result).appendTo($('#tableRight'));
+					app.component.divAlert('alert-success').html('스위치수열 결과: ' + result).appendTo(tableRight);
 				});
 			});
 			$('#dSeries').on('click',function() {
 				$('#tableRight').empty();
-				app.component.inputText('inputText').attr('placeholder', 'limit').appendTo($('#tableRight'));
-				app.component.aButton('aButton','btn-info').html('계차수열의 합').appendTo($('#tableRight')).on('click', function() {
+				app.component.inputText('inputText').attr('placeholder', 'limit').appendTo(tableRight);
+				app.component.aButton('aButton','btn-info').html('계차수열의 합').appendTo(tableRight).on('click', function() {
 					var result=app.algorithm.dSeries($('#inputText').val());
-					app.component.divAlert('alert-info').html('계차수열 결과: ' + result).appendTo($('#tableRight'));
+					app.component.divAlert('alert-info').html('계차수열 결과: ' + result).appendTo(tableRight);
 				});
 			});
 			$('#factorial').on('click',function() {
 				$('#tableRight').empty();
-				app.component.inputText('inputText').attr('placeholder', 'limit').appendTo($('#tableRight'));
-				app.component.aButton('aButton','btn-warning').html('팩토리얼수열의 합').appendTo($('#tableRight')).on('click',function() {
+				app.component.inputText('inputText').attr('placeholder', 'limit').appendTo(tableRight);
+				app.component.aButton('aButton','btn-warning').html('팩토리얼수열의 합').appendTo(tableRight).on('click',function() {
 					var result=app.algorithm.factorial($('#inputText').val());
-					app.component.divAlert('alert-warning').html('팩토리얼수열 결과: ' + result).appendTo($('#tableRight'));
+					app.component.divAlert('alert-warning').html('팩토리얼수열 결과: ' + result).appendTo(tableRight);
 				});
 			});
 			$('#fibonacci').on('click',function() {
 				$('#tableRight').empty();
-				app.component.inputText('inputText').attr('placeholder', 'limit').appendTo($('#tableRight'));
-				app.component.aButton('aButton','btn-danger').html('피보나치수열의 합').appendTo($('#tableRight')).on('click',function() {
+				app.component.inputText('inputText').attr('placeholder', 'limit').appendTo(tableRight);
+				app.component.aButton('aButton','btn-danger').html('피보나치수열의 합').appendTo(tableRight).on('click',function() {
 					var result=app.algorithm.fibonacci($('#inputText').val());
-					app.component.divAlert('btn-danger').html('피보나치수열 결과: ' + result).appendTo($('#tableRight'));
+					app.component.divAlert('btn-danger').html('피보나치수열 결과: ' + result).appendTo(tableRight);
 				});
 			});
 		});
@@ -275,18 +288,18 @@ app.algorithm=(function(){
 	         tableLeft.html(str);
 	         var tableRight = $('#tableRight');   
 	         tableRight.empty();
-	         var arr = randomGen();
+	         var arr = randomGen(6);
 	            tableRight.html(app.component.horList(arr,'default'));
-	            app.component.inputText('inputText').attr('placeholder', '정렬 회전 수 입력').appendTo($('#tableRight'));
+	            app.component.inputText('inputText').attr('placeholder', '정렬 회전 수 입력').appendTo(tableRight);
 				app.component.aButton('aButton','btn-primary').html('선택정렬').appendTo(tableRight).on('click',function() {
 					var result=selectSort(arr);
 					tableRight.append(app.component.horList(result,'default'));
 				});
 			$('#selectSort').on('click',function() {
 				tableRight.empty();
-				var arr = randomGen();
+				var arr = randomGen(6);
 	            tableRight.html(app.component.horList(arr,'default'));
-	            app.component.inputText('inputText').attr('placeholder', '정렬 회전 수 입력').appendTo($('#tableRight'));
+	            app.component.inputText('inputText').attr('placeholder', '정렬 회전 수 입력').appendTo(tableRight);
 				app.component.aButton('aButton','btn-primary').html('선택정렬').appendTo(tableRight).on('click',function() {
 					var result=selectSort(arr,$('#inputText').val());
 					$('#aButton').remove();
@@ -296,9 +309,9 @@ app.algorithm=(function(){
 			});
 			$('#bubbleSort').on('click',function() {
 				tableRight.empty();
-				var arr = randomGen();
+				var arr = randomGen(6);
 	            tableRight.html(app.component.horList(arr,'default'));
-	            app.component.inputText('inputText').attr('placeholder', '정렬 회전 수 입력').appendTo($('#tableRight'));
+	            app.component.inputText('inputText').attr('placeholder', '정렬 회전 수 입력').appendTo(tableRight);
 				app.component.aButton('aButton','btn-primary').html('버블정렬').appendTo(tableRight).on('click',function() {
 					var result=bubbleSort(arr,$('#inputText').val());
 					tableRight.append(app.component.horList(result,'default'));
@@ -306,9 +319,9 @@ app.algorithm=(function(){
 			});
 			$('#insertSort').on('click',function() {
 				tableRight.empty();
-				var arr = randomGen();
+				var arr = randomGen(6);
 	            tableRight.html(app.component.horList(arr,'default'));
-	            app.component.inputText('inputText').attr('placeholder', '정렬 회전 수 입력').appendTo($('#tableRight'));
+	            app.component.inputText('inputText').attr('placeholder', '정렬 회전 수 입력').appendTo(tableRight);
 				app.component.aButton('aButton','btn-primary').html('삽입정렬').appendTo(tableRight).on('click',function() {
 					var result=insertSort(arr,$('#inputText').val());
 					tableRight.append(app.component.horList(result,'default'));
@@ -316,7 +329,7 @@ app.algorithm=(function(){
 			});
 			$('#ranking').on('click',function() {
 				tableRight.empty();
-				var arr = randomGen();
+				var arr = randomGen(6);
 	            tableRight.html(app.component.horList(arr,'default'));
 				app.component.aButton('aButton','btn-primary').html('석차구하기').appendTo(tableRight).on('click',function() {
 					var result=rank(arr);
@@ -327,9 +340,9 @@ app.algorithm=(function(){
 		});
 	};
 	
-	var randomGen = function(){
+	var randomGen = function(n){
 	    var arr=[];
-	    for(i=0;i<6;i++){
+	    for(i=0;i<n;i++){
 	       arr[i]=(Math.floor(Math.random()*45)+1);
 	       for(k=i;k>0;k--){
 				if(arr[i]==arr[k-1]){
@@ -389,13 +402,99 @@ app.algorithm=(function(){
 		            d : 24,
 		            e : 25
 		        }
-		    ]
+		    ];
 			$('#tableRight').html(app.component.panelTable(jason,'Basic','default'));
 		});
 	};
+	
+	var zigzag=function(){
+		$('#zigzag').on('click',function(){
+			
+		});
+	};
+	
+	var diamond=function(){
+		$('#diamond').on('click',function(){
+			var a=[[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];
+			var k=0;//1씩 증가하는 변수
+			var i=0;//배열의 행위치
+			var j=0;//배열의 열위치
+			var s=2;//열의 시작 위치
+			var e=2;//열의 끝 위치
+			for(i=0;i<5;i++){
+				for(j=s;j<=e;j++){
+					k++;
+					a[i][j]=k;
+				}
+				if(i>1){
+					s++;
+					e--;
+				}else{
+					s--;
+					e++;
+				}
+			}
+			var jason=[
+		        {
+		            a : a[0][0],
+		            b : a[0][1],
+		            c : a[0][2],
+		            d : a[0][3],
+		            e : a[0][4]
+		        },
+		        {
+		        	a : a[1][0],
+		            b : a[1][1],
+		            c : a[1][2],
+		            d : a[1][3],
+		            e : a[1][4]
+		        },
+		        {
+		        	a : a[2][0],
+		            b : a[2][1],
+		            c : a[2][2],
+		            d : a[2][3],
+		            e : a[2][4]
+		        },
+		        {
+		        	a : a[3][0],
+		            b : a[3][1],
+		            c : a[3][2],
+		            d : a[3][3],
+		            e : a[3][4]
+		        },
+		        {
+		        	a : a[4][0],
+		            b : a[4][1],
+		            c : a[4][2],
+		            d : a[4][3],
+		            e : a[4][4]
+		        }
+		    ];
+			$('#tableRight').html(app.component.panelTable(jason,'Basic','default'));
+		});
+	};
+	
+	var sandGlass=function(){
+		$('#sandGlass').on('click',function(){
+			
+		});
+	};
+	
+	var snail=function(){
+		$('#snail').on('click',function(){
+			
+		});
+	};
+	
+	var magicSquare=function(){
+		$('#magicSquare').on('click',function(){
+			
+		});
+	};
+	
 	var matrix=function(){
 		$('#matrix').on('click', function() {
-			alert('matrix');
 			var wrapper=app.component.getWrapper();
 			wrapper.empty();
 	         wrapper.append(app.algorithm.TABLE);
@@ -415,17 +514,192 @@ app.algorithm=(function(){
 	         var tableRight = $('#tableRight');   
 	         tableRight.empty();
 	         basic();
+	         diamond();
 		});
 	};
 	var math=function(){
 		$('#math').on('click', function() {
-			app.component.wrapper.empty();
-			app.component.inputText('inputText').attr('placeholder', 'limit').appendTo(wrapper);
-			app.component.aButton('aButton','btn-primary').html('math').appendTo(wrapper).on('click', function() {
-				aSeries(inputText.val());
+			var wrapper=app.component.getWrapper();
+			wrapper.empty();
+			wrapper.append(app.algorithm.TABLE);
+			var arr=[{id:'determinePrime', txt:'소수판별'}
+				,{id:'primeSum', txt:'소수의 합'}
+				,{id:'primeCount', txt:'소수의 개수'}
+				,{id:'lcmGcm', txt:'최대공약수/최소공배수'}
+				,{id:'euclid', txt:'유클리드'}
+				,{id:'factorization', txt:'약수구하기'}
+				,{id:'primeFactor', txt:'소인수분해'}
+				,{id:'multiplSum', txt:'배수의 합'}
+				,{id:'approx', txt:'근사값구하기'}];
+			var str='';
+			$.each(arr, function(i,j){
+				str+='<li id="'+j.id+'" class="list-group-item"><a href="#">'+j.txt+'</a></li>';
+			});
+			var tableLeft = $('#tableLeft');
+	         tableLeft.empty();
+	         tableLeft.html(str);
+	         var tableRight = $('#tableRight');   
+	         tableRight.empty();
+	         determinePrime();
+	         primeSum();
+	         primeCount();
+	         lcmGcm();
+	         factorization();
+	         primeFactor();
+	         multiplSum();
+	         approx();
+		});
+	};
+	
+	/*소수판별: 어떤 수 X가 2부터 X-1까지 차례대로 나누어 떨어지는지 검사*/
+	var determinePrime=function(){
+		$('#determinePrime').on('click',function(){
+			var a=randomGen(1);
+			var result='소수';
+			for(var i=2;i<a;i++){
+				if(a%i==0){
+					result='소수 아님';
+				}
+			}
+			$('#tableRight').html('소수판별수: '+a+'<br>결과: '+result);
+		});
+	};
+	
+	/*소수의합: 숫자2부터 입력받은 수 X까지 증가시키며 각각 소수판별 후 소수만 합계에 누적*/
+	var primeSum=function(){
+		$('#primeSum').on('click',function(){
+			var a=randomGen(1);
+			var sum=0;
+			var sumStr=[];
+			var ch=1;
+			for(var i=2;i<=a;i++){
+				for(var j=2;j<i;j++){
+					if(i%j==0){
+						ch=0;
+						break;
+					}
+				}
+				if(ch==1){
+					sum+=i;
+					sumStr.push(i);
+				}
+				ch=1;
+			}
+			$('#tableRight').html('소수를 구할 숫자 범위의 한계: '+a+'<br>소수의 합 결과: '+sum+'<br>소수들: '+sumStr);
+		});
+	};
+	
+	/*소수의개수: 숫자2부터 입력받은 수 X까지 증가시키며 각각 소수판별 후 소수만 개수에 누적*/
+	var primeCount=function(){
+		$('#primeCount').on('click',function(){
+			var a=randomGen(1);
+			var count=0;
+			var countStr=[];
+			var ch=1;
+			for(var i=2;i<=a;i++){
+				for(var j=2;j<i;j++){
+					if(i%j==0){
+						ch=0;
+						break;
+					}
+				}
+				if(ch==1){
+					count++;
+					countStr.push(i);
+				}
+				ch=1;
+			}
+			$('#tableRight').html('소수를 구할 숫자 범위의 한계: '+a+'<br>소수의 개수 결과: '+count+'<br>소수들: '+countStr);
+		});
+	};
+	
+	/*최대공약수,최소공배수*/
+	var lcmGcm=function(){
+		$('#lcmGcm').on('click',function(){
+			var a=randomGen(1);
+			var b=randomGen(1);
+			var big=(a>b)?a:b;
+			var small=(a>b)?b:a;
+			var gcm=0,lcm=0;
+			var temp=0;
+			while(true){
+				if(big%small==0){
+					gcm=small;
+					lcm=a*b/gcm;
+					break;
+				}else{
+					temp=big;
+					big=small;
+					small=temp%small;
+				}
+			}
+			$('#tableRight').html('두 수: '+a+', '+b+'<br>최대공약수: '+gcm+'<br>최소공배수: '+lcm);
+		});
+	};
+	/*약수구하기*/
+	var factorization=function(){
+		$('#factorization').on('click',function(){
+			var a=[];
+			var b=randomGen(1);
+			for(var i=0;i<=b;i++){
+				if(b%i==0){
+					a.push(i);
+				}
+			}
+			$('#tableRight').html('약수를 구할 수: '+b+'<br>약수: '+a);
+		});
+	};
+	/*소인수분해*/
+	var primeFactor=function(){
+		$('#primeFactor').on('click',function(){
+			
+		});
+	};
+	
+	var multiplSum=function(){
+		$('#multiplSum').on('click',function(){
+			app.component.inputText('inputText').attr('placeholder', '배수를 구하고 싶은 수와 범위를 입력하세요.').appendTo(tableRight);
+			app.component.aButton('aButton','btn-primary').html('결과보기').appendTo(tableRight).on('click', function() {
+				var a=$('#inputText').val().split(" ")[0]*1;
+				var b=$('#inputText').val().split(" ")[1]*1;
+				var n=b/a;
+				console.log('n:'+n);
+				var sum=0;
+				var sumStr=[];
+				for(var i=1;i<=n;i++){
+					sum+=a*i;
+					sumStr.push(a*i);
+				}
+				$('#tableRight').html('배수를 구하고 싶은 수: '+a+'<br>범위: 1~'+b+'<br>결과: '+sum+'<br>'+sumStr);
 			});
 		});
 	};
+	
+	var approx=function(){
+		$('#approx').on('click',function(){
+			app.component.inputText('inputText').attr('placeholder', '1~45사이의 숫자를 입력하세요').appendTo(tableRight);
+			app.component.aButton('aButton','btn-primary').html('결과보기').appendTo(tableRight).on('click', function() {
+				var a=$('#inputText').val()*1;
+				var b=randomGen(10);
+				var l=0;
+				var j=44;
+				var m=0;
+				for(var i=0;i<b.length;i++){
+					if(a>b[i]){
+						l=a-b[i];
+					}else{
+						l=b[i]-a;
+					}
+					if(l<=j){
+						j=l;
+						m=b[i];
+					}
+				}
+				$('#tableRight').html('입력한 숫자: '+a+'<br>10개의 수: '+b+'<br>가장 가까운 수: '+m);
+			});
+		});
+	};
+	
 	var appl=function(){
 		$('#application').on('click', function() {
 			app.component.wrapper.empty();
@@ -450,8 +724,14 @@ app.algorithm=(function(){
 		horizontalTable: horizontalTable,
 		arr: arr,
 		basic: basic,
+		diamond: diamond,
 		matrix: matrix,
 		math: math,
+		lcmGcm: lcmGcm,
+		factorization: factorization,
+		primeFactor: primeFactor,
+		multiplSum: multiplSum,
+		approx: approx,
 		appl: appl
 	};
 })();
