@@ -6,7 +6,7 @@
 <h3 class="text_center font_border">의사 상세정보</h3>
 <table class="table_default margin_center" style="width: 300px">
 	<tr class="text_center">
-		<td rowspan="4"><img src="${context.img}/common/profile_img.png" width="85px" height="100px"/></td>
+		<td rowspan="4"><img src="${context}/resources/img/common/profile_img.png" width="85px" height="100px"/></td>
 		<td class="bg_color_gray">ID</td>
 		<td>${docID}</td>
 	</tr>

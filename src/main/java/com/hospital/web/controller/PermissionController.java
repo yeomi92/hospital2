@@ -52,15 +52,12 @@ public class PermissionController {
 			map.put("key", Enums.PATIENT.val());
 			map.put("value", id);
 			logger.info("key, group, value {}", map.get("key")+map.get("group")+map.get("value"));
-			
 			ReadService exist2=new ReadService() {
 				@Override
 				public Object execute(Map<?, ?> map) throws Exception {
 					return mapper.exist(map);
 				}
 			};
-			
-			
 			//Lambda
 			ReadService exist=(paramMap)->mapper.exist(paramMap);
 			Integer count = (Integer) exist.execute(map);
@@ -75,7 +72,6 @@ public class PermissionController {
 				//Lambda
 				ReadService login=(paramMap)->mapper.findPatient(paramMap);
 				patient = (Patient) login.execute(map);
-				
 				if (patient.getPass().equals(pw)) {
 					logger.info("DB RESULT: {}", "Success");
 					session.setAttribute("permission", patient);
@@ -102,6 +98,20 @@ public class PermissionController {
 		}
 		return movePosition;
 	}
+	
+	
+	@RequestMapping(value = "/{permission}/update", method = RequestMethod.POST)
+	public String update(@RequestParam("id") String id, @PathVariable String permission, HttpSession session, Model model) throws Exception {
+		logger.info("PermissionController login() {}", "POST");
+		logger.info("PermissionController login() group: {}", permission);
+		switch(permission){
+		case "patient":break;
+		case "doctor":break;
+		case "nurse":break;
+		}
+		return "";
+	}
+	
 	@RequestMapping("/logout")
 	public String logout(HttpSession session){
 		session.invalidate();

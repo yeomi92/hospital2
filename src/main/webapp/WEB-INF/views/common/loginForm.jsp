@@ -61,7 +61,7 @@ $(function(){
 	$('#loginForm input[value=로그인]').click(function(event){
 		var permission=$loginForm.find(':radio[name="permission"]:checked').val();
 		alert('permission:'+permission);
-		$loginForm.attr("action","${context.path}/"+permission+"/login");
+		$loginForm.attr("action","${context}/"+permission+"/login");
 		$loginForm.attr("method","post");
 		var idVal=tab.find('input[name=id]').val();
 		var pwVal=tab.find('input[name=password]').val();

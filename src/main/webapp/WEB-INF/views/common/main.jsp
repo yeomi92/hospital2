@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<img src="${context.img}/common/mainImg.jpg" alt="" style="margin: auto; display: block;"/>
+<img src="${context}/resources/img/common/mainImg.jpg" alt="" style="margin: auto; display: block;"/>
 <script src="//www.google.com/jsapi"></script>
 <script>
 var data = [

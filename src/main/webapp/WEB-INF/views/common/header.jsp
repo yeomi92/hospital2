@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div id="header">
 	<div id="divHeader">
-	<img src="${context.img}/common/index_logo.png"/>
+	<img src="${context}/resources/img/common/index_logo.png"/>
 	</div>
 </div>
 <script>

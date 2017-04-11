@@ -8,9 +8,9 @@
 <head>
 	<meta charset="UTF-8" />
 	<title><tiles:getAsString name="title"/></title>
-	<link rel="stylesheet" type="text/css" href="${context.css}/hanbit.css" />
-	<script src="${context.js}/jquery-3.1.1.js"></script>
-	<script src="${context.js}/patient.js"></script>
+	<link rel="stylesheet" type="text/css" href="${context}/resources/css/hanbit.css" />
+	<script src="${context}/resources/js/jquery-3.1.1.js"></script>
+	<script src="${context}/resources/js/patient.js"></script>
 </head>
 <body>
 	<header>

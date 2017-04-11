@@ -8,7 +8,7 @@
       <div>
             <table class="pat_detail">
                   <tr style="text-align: left;">
-                        <td colspan="5"><div><img src="${context.img}/common/defaultimg.jpg" alt="" width="160px"/></div></td>
+                        <td colspan="5"><div><img src="${context}/resources/img/common/defaultimg.jpg" alt="" width="160px"/></div></td>
                   </tr>
                   <tr>
                         <td style="width: 60px" rowspan="5"><span style="font-size: 20px">내<br>정<br>보</span></td>
@@ -47,7 +47,7 @@
 <script>
 function docDetail(){
 	alert("의사 상세보기 클릭");
-	location.href="${context.path}/patient/doctor/han";
+	location.href="${context}/patient/doctor/han";
 	//location.href="${context}/doctor.do?action=detail&page=detail&docName=${user.docID}";
 }
 </script>
