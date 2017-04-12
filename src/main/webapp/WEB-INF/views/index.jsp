@@ -82,10 +82,11 @@
  		<!-- /.container-fluid -->
  	</nav>
  	<div id="wrapper">
- 	</div>
- 
- 
- 
- 
- 
- </body>
+   <div></div>
+      <button type="button" class="btn btn-default">CLICK ME</button>
+   </div>
+</body>
+<script>
+   app.context.init('${context}');
+</script>
+</html>

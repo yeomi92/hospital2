@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.hospital.web.domain.Info;
@@ -24,7 +25,7 @@ import com.hospital.web.mapper.Mapper;
 import com.hospital.web.service.ReadService;
 import com.hospital.web.util.Util;
 
-@Controller
+@RestController
 @SessionAttributes("permission")
 public class PermissionController {
 	private static final Logger logger = LoggerFactory.getLogger(PermissionController.class);

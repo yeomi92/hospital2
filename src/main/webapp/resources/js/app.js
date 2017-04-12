@@ -682,8 +682,8 @@ app.algorithm=(function(){
 	        for(k=1;k<=25;k++){
 	        	console.log('i, j, k: '+i+', '+j+', '+k);	
 	        	a[i][j]=k;
-	        	nmg=k-((k/5)*5);
-	        	console.log('nmg: '+nmg);	
+	        	nmg=k%5;
+	        	console.log('nmg, i, k: '+nmg+', '+i+', '+k);	
 	        	if(nmg==0){
 	        		i++;
 	        		continue;
@@ -901,7 +901,41 @@ app.algorithm=(function(){
 	/*소인수분해*/
 	var primeFactor=function(){
 		$('#primeFactor').on('click',function(){
-			
+			var a=[]; //소인수 저장될 배열
+			var b=4; //소인수분해할 숫자
+			var c=-1; //소인수 저장할 배열 a의 위치를 지정해주는 변수
+			var d=2; //제수가 저장될 변수
+			var e=2; //b의 제곱근이 저장될 변수
+			var mok=0; //b를 d로 나눈 몫이 저장될 변수
+			var nmg=0 //b를 d로 나눈 나머지가 저장도리 변수
+			var result='';
+			while(1){
+				e=Math.sqrt(b);
+				console.log('e: '+e);
+				while(1){
+					if(d>e){
+						d=b;
+						break;
+					}
+					mok=b/d;
+					nmg=b-mok*d;
+					if(nmg==0){
+						break;
+					}else{
+						d++;
+					}
+				}
+				c++;
+				a[c]=d;
+				if(b==d){
+					break;
+				}
+				b=mok;
+			}
+			for(i=0;i<=c;i++){
+				result+=a[i]+' ';
+			}
+			$('#tableRight').html('소인수분해할 수: 5<br>소인수 결과: '+result);
 		});
 	};
 	

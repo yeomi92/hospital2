@@ -1,26 +1,28 @@
 package com.hospital.web.controller;
 
-import java.util.Map;
-
-import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import com.hospital.web.domain.Command;
+import org.springframework.web.bind.annotation.RestController;
+import com.hospital.web.domain.Admin;
+import com.hospital.web.domain.Doctor;
+import com.hospital.web.domain.Info;
+import com.hospital.web.domain.Nurse;
+import com.hospital.web.domain.Patient;
 import com.hospital.web.domain.Person;
 import com.hospital.web.mapper.Mapper;
 
-@Controller
+@RestController
 public class PersonController {
 	private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
 	@Autowired Mapper mapper;
+	@Autowired Patient patient;
+	@Autowired Doctor doctor;
+	@Autowired Nurse nurse;
+	@Autowired Admin admin;
 	@RequestMapping("/patient/doctor/{docID}")
 	public String getDoctorInfo(@PathVariable String docID, Model model) {
 		logger.info("PersonController getDoctorInfo() {}", "OK");
@@ -37,28 +39,15 @@ public class PersonController {
 		return "public:common/registerForm";
 	}
 	
-	@RequestMapping(value="/register/{type}",method=RequestMethod.POST)
-	public String register(@PathVariable String type, @RequestBody Map<String,Object>map, Command command) throws Exception {
-		logger.info("PersonController register() {}", "OK");
-		if(type.equals("")){type="patient";}
-		map.put("type", type);
-		Person<?> person=command.process(map).getPersonInfo();
-		int result=0;
-		switch (type) {
-		case "patient":
-			result=mapper.registPatient(person);
-			break;
-		case "doctor":
-			result=mapper.registDoctor(person);
-			break;
-		case "nurse":
-			result=mapper.registNurse(person);
-			break;
-		default:
-			break;
-		}
-		String move="";
-		move=result==1?"public:common/loginForm":"redirect:common/main";
-		return move;
-	}
+	private Person<? extends Info> getPatient(String target) throws Exception{
+		Person<?> person=new Person<Info>(new Patient());
+		Patient patient=(Patient) person.getInfo();
+		String temp=patient.getId();
+		logger.info("PersonController() {}", "===temp값: "+temp+"Delete진입===");
+		logger.info("PersonController() {}", patient+"===delete DB가기 직전===");
+		//
+		//
+		//
+		return person;
+	}	
 }

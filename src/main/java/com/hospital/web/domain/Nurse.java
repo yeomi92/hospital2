@@ -1,10 +1,11 @@
 package com.hospital.web.domain;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
+
 import lombok.Data;
 
-@Qualifier("nurse") @Lazy @Data
+@Component @Lazy @Data
 public class Nurse extends Info{
 	private String major,position;
 
