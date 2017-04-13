@@ -38,7 +38,7 @@
  						class="icon-bar"></span> <span class="icon-bar"></span> <span
  						class="icon-bar"></span>
  				</button>
- 				<a class="navbar-brand" href="#">Brand</a>
+ 				<a id="brand" class="navbar-brand" href="#" ><img src="${context}/resources/img/common/hospital_img.png" width="40px" height="40px"/></a>
  			</div>
  
  			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -82,7 +82,6 @@
  		<!-- /.container-fluid -->
  	</nav>
  	<div id="wrapper">
-   <div></div>
       <button type="button" class="btn btn-default">CLICK ME</button>
    </div>
 </body>

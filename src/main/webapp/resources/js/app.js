@@ -15,6 +15,7 @@ app.context=(function(){
 	};
 	var onCreate=function(){
 		setContentView();
+		app.person.init();
 		app.algorithm.init();
 		app.component.init();
 		app.oop.init();
@@ -1062,8 +1063,50 @@ app.oop=(function(){
 		poly: function(){}
 	};
 })();
-
+/*person*/
 app.person=(function(){
+	var wrapper,ctx,img,js,css;
+	var init=function(){
+		wrapper=app.component.getWrapper();
+		ctx=app.session.getContextPath();
+		img=app.session.getImagePath();
+		js=app.session.getJavaScriptPath();
+		css=app.session.getStylePath();
+		$('#brand').on('click',function(){
+			alert('brand click');
+		});
+		$('#wrapper').load(ctx+'/login/form');
+		login();
+	};
+	var login=function() {
+		$('#login-submit').on('click',function(){
+			alert('login-submit click!!');
+		});
+	    $('#login-form-link').on('click',function(e) {
+	    	alert('login-form-link click');
+			$("#login-form").delay(100).fadeIn(100);
+	 		$("#register-form").fadeOut(100);
+			$('#register-form-link').removeClass('active');
+			$(this).addClass('active');
+			e.preventDefault();
+		});
+		$('#register-form-link').on('click',function(e) {
+			alert('register-form-link');
+			$("#register-form").delay(100).fadeIn(100);
+	 		$("#login-form").fadeOut(100);
+			$('#login-form-link').removeClass('active');
+			$(this).addClass('active');
+			e.preventDefault();
+		});
+
+	};
+	return {
+		init: init,
+		login: login
+	};
+})();
+
+app.info=(function(){
 	var _name,_age,_gen,_job;
 	return {
 		setName: function(name){this._name=name},
@@ -1151,6 +1194,9 @@ app.component=(function(){
 	    	return table;
 	    }
 	};
+})();
+app.login=(function(){
+	
 })();
 app.navi=(function(){})();
 app.patient=(function(){})();

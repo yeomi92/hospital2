@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.hospital.web.domain.Admin;
 import com.hospital.web.domain.Command;
@@ -20,7 +21,7 @@ import com.hospital.web.domain.Nurse;
 import com.hospital.web.domain.Patient;
 import com.hospital.web.domain.Person;
 import com.hospital.web.mapper.Mapper;
-
+@RestController
 public class PostController {
 	private static final Logger logger = LoggerFactory.getLogger(PostController.class);
 	@Autowired Mapper mapper;

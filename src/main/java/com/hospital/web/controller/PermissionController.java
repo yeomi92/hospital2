@@ -22,16 +22,17 @@ import com.hospital.web.domain.Patient;
 import com.hospital.web.domain.Person;
 import com.hospital.web.domain.Enums;
 import com.hospital.web.mapper.Mapper;
-import com.hospital.web.service.ReadService;
+import com.hospital.web.service.IGetService;
 import com.hospital.web.util.Util;
 
+//tiles활용한 것
 @RestController
 @SessionAttributes("permission")
 public class PermissionController {
 	private static final Logger logger = LoggerFactory.getLogger(PermissionController.class);
 	@Autowired
 	Mapper mapper;
-	@RequestMapping(value = "/login")
+	@RequestMapping(value = "/test/login")
 	public String goLogin() {
 		logger.info("PermissionController goLogin() {}", "OK");
 		return "public:common/loginForm";
@@ -53,14 +54,14 @@ public class PermissionController {
 			map.put("key", Enums.PATIENT.val());
 			map.put("value", id);
 			logger.info("key, group, value {}", map.get("key")+map.get("group")+map.get("value"));
-			ReadService exist2=new ReadService() {
+			IGetService exist2=new IGetService() {
 				@Override
 				public Object execute(Map<?, ?> map) throws Exception {
 					return mapper.exist(map);
 				}
 			};
 			//Lambda
-			ReadService exist=(paramMap)->mapper.exist(paramMap);
+			IGetService exist=(paramMap)->mapper.exist(paramMap);
 			Integer count = (Integer) exist.execute(map);
 			
 			logger.info("ID Exist?  {}", count);
@@ -71,7 +72,7 @@ public class PermissionController {
 				logger.info("DB RESULT: {}", "ID exist");
 				
 				//Lambda
-				ReadService login=(paramMap)->mapper.findPatient(paramMap);
+				IGetService login=(paramMap)->mapper.findPatient(paramMap);
 				patient = (Patient) login.execute(map);
 				if (patient.getPass().equals(pw)) {
 					logger.info("DB RESULT: {}", "Success");
@@ -113,7 +114,7 @@ public class PermissionController {
 		return "";
 	}
 	
-	@RequestMapping("/logout")
+	@RequestMapping("/test/logout")
 	public String logout(HttpSession session){
 		session.invalidate();
 		return "redirect:/";

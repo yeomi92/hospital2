@@ -1,7 +1,9 @@
 package com.hospital.web.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,14 +13,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.hospital.web.domain.Admin;
 import com.hospital.web.domain.Command;
 import com.hospital.web.domain.Doctor;
+import com.hospital.web.domain.Enums;
 import com.hospital.web.domain.Nurse;
 import com.hospital.web.domain.Patient;
 import com.hospital.web.mapper.Mapper;
+import com.hospital.web.service.PersonService;
 
+@RestController
 public class GetController {
 	private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
 	@Autowired Mapper mapper;
@@ -26,18 +32,22 @@ public class GetController {
 	@Autowired Doctor doctor;
 	@Autowired Nurse nurse;
 	@Autowired Admin admin;
+	@Autowired PersonService personService;
 	@RequestMapping("/get/{group}/{target}")
 	public @ResponseBody Object get(@PathVariable("group") String group, @PathVariable("target") String target) throws Exception{
 		logger.info("PersonController get() {}", "OK");
+		Map<String,String>map=new HashMap<>();
 		Object o=null;
 		switch(group){
 		case "patient":
 			logger.info("group.equals({})", group);
 		//	o=getPatient();
-			patient.setId("hong");
-			patient.setName("홍길동");
-			patient.setPass("1234");
-			o=patient;
+			logger.info("group.equals({})", group);
+			map.put("group", patient.getGroup());
+			map.put("key", Enums.PATIENT.val());
+			map.put("value", target);
+			o=personService.getPatient(map);
+			logger.info("환자 조회 결과 이름({})", ((Patient) o).getName());
 			break;
 		case "doctor":
 			logger.info("group.equals({})", group);

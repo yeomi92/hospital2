@@ -1,11 +1,9 @@
 package com.hospital.web.service;
 
-import java.util.Map;
-
 import org.springframework.stereotype.Service;
 
 @Service
 @FunctionalInterface
-public interface UpdateService {
-	public Object execute(Map<?,?>map)throws Exception;
+public interface IPostService {
+	public int execute(Object o)throws Exception;
 }

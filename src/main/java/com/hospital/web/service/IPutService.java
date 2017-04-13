@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 @FunctionalInterface
-public interface ReadService {
-	public Object execute(Map<?,?>map)throws Exception;
+public interface IPutService {
+	public int execute(Object o)throws Exception;
 }

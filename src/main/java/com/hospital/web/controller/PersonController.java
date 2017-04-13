@@ -1,11 +1,16 @@
 package com.hospital.web.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.hospital.web.domain.Admin;
 import com.hospital.web.domain.Doctor;
@@ -50,4 +55,13 @@ public class PersonController {
 		//
 		return person;
 	}	
+	
+	@RequestMapping(value="/login",method=RequestMethod.POST,consumes="application/json")
+	public @ResponseBody Map<?,?> login(){
+		logger.info("PersonController login() {}", "Enter");
+		Map<String,String>map=new HashMap<>();
+		map.put("name", "박준용");
+		map.put("login", "success");
+		return map;
+	}
 }
