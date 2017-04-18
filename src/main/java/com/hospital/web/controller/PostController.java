@@ -21,6 +21,7 @@ import com.hospital.web.domain.Nurse;
 import com.hospital.web.domain.Patient;
 import com.hospital.web.domain.Person;
 import com.hospital.web.mapper.Mapper;
+import com.hospital.web.service.IPostService;
 @RestController
 public class PostController {
 	private static final Logger logger = LoggerFactory.getLogger(PostController.class);
@@ -28,65 +29,60 @@ public class PostController {
 	@Autowired Patient patient;
 	@Autowired Doctor doctor;
 	@Autowired Nurse nurse;
-	@Autowired Admin admin;
-	@RequestMapping(value="/post/{group}",method=RequestMethod.POST,consumes="application/json")
-	public @ResponseBody Map<?,?> post(@PathVariable String group, @SuppressWarnings("rawtypes") @RequestBody Person target, Command command) throws Exception {
-		logger.info("PersonController register() {}","OK");
-		Map<?,?>map=new HashMap<>();
-		switch (group) {
-		case "patient":
-			map=postPatient(target);
-			break;
-		case "doctor":
-			map=postDoctor(target);
-			break;
-		case "nurse":
-			map=postNurse(target);
-			break;
-		case "admin":
-			map=postAdmin(target);
-			break;
-		default:
-			break;
-		}
+	@Autowired Admin admin;	
+	@RequestMapping(value="/post/doctor",method=RequestMethod.POST,consumes="application/json")
+	public @ResponseBody Map<?,?> post(@RequestBody Doctor doctor) throws Exception{
+		logger.info("PostController post() {}","OK");
+		Map<String,String>map=new HashMap<>();
+		map=postDoctor(doctor);
+		logger.info("PostController post() map name{}",map.get("name"));
+		return map;
+	}
+	@RequestMapping(value="/post/patient",method=RequestMethod.POST,consumes="application/json")
+	public @ResponseBody Map<?,?> post(@RequestBody Patient patient) throws Exception{
+		logger.info("PostController post() {}","OK");
+		Map<String,String>map=new HashMap<>();
+		map=postPatient(patient);
+		logger.info("PostController post() map name{}",map.get("name"));
+		return map;
+	}
+	@RequestMapping(value="/post/nurse",method=RequestMethod.POST,consumes="application/json")
+	public @ResponseBody Map<?,?> post(@RequestBody Nurse nurse) throws Exception{
+		logger.info("PostController post() {}","OK");
+		Map<String,String>map=new HashMap<>();
+		map=postNurse(nurse);
+		logger.info("PostController post() map name{}",map.get("name"));
+		return map;
+	}
+	private Map<String,String> postPatient(Object o) throws Exception{
+		Map<String,String>map=new HashMap<>();
+		logger.info("PostController postPatient( {}","진입");
+		((Patient) o).setDocID("dahn");
+		((Patient) o).setNurID("nkim");
+		IPostService join=(param)->mapper.registPatient(param);
+		join.execute(o);
+		map.put("name", ((Patient) o).getName());
+		return map;
+	}
+	private Map<String,String> postDoctor(Object o) throws Exception{
+		logger.info("PostController postDoctor( {}","진입");
+		Map<String,String>map=new HashMap<>();
+		IPostService join=(param)->mapper.registDoctor(param);
+		join.execute(o);
+		map.put("name", ((Doctor) o).getName());
+		return map;
+	}
+	private Map<String,String> postNurse(Object o) throws Exception{
+		logger.info("PostController postNurse( {}","진입");
+		Map<String,String>map=new HashMap<>();
+		IPostService join=(param)->mapper.registNurse(param);
+		join.execute(o);
+		map.put("name", ((Nurse) o).getName());
 		return map;
 	}
 	
-	private Map<?,?> postPatient(Object o){
-		Map<?,?>map=new HashMap<>();
-		Person<?> person=new Person<Info>(new Patient());
-		Patient patient=(Patient) person.getInfo();
-		logger.info("PersonController postPatient() patientID: {}",patient.getId());
-		patient.getGen();
-		patient.setJob("환자");
-		patient.getJumin();
-		patient.getName();
-		logger.info("PersonController postPatient( {}","update진입");
-		return map;
-	}
-	private Map<?,?> postDoctor(Object o){
-		Map<?,?>map=new HashMap<>();
-		Person<?> person=new Person<Info>(new Patient());
-		Doctor doctor=(Doctor) person.getInfo();
-		logger.info("PersonController postPatient() patientID: {}",doctor.getId());
-		doctor.getGen();
-		//doctor.setJob("환자");
-		doctor.getName();
-		logger.info("PersonController postPatient( {}","update진입");
-		return map;
-	}
-	private Map<?,?> postNurse(Object o){
-		Map<?,?>map=new HashMap<>();
-		Person<?> person=new Person<Info>(new Patient());
-		/*Nurse nurse=nurs
-		logger.info("PersonController postPatient() patientID: {}",patient.getId());
-		patient.getGen();
-		patient.setJob("환자");
-		patient.getJumin();
-		patient.getName();*/
-		logger.info("PersonController postPatient( {}","update진입");
-		return map;
-	}
+	
+	
 	private Map<?,?> postAdmin(Object o){
 		Map<?,?>map=new HashMap<>();
 		Person<?> person=new Person<Info>(new Patient());

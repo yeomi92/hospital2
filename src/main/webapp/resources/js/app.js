@@ -51,11 +51,12 @@ app.session=(function(){
 })();
 
 //util
-app.util=(function(){})();
 
 series=(function(){})();
 arr=(function(){})();
 aSeries=function(){};
+
+
 
 //algorithm
 app.algorithm=(function(){
@@ -1075,36 +1076,14 @@ app.person=(function(){
 		$('#brand').on('click',function(){
 			alert('brand click');
 		});
-		$('#wrapper').load(ctx+'/login/form');
-		login();
-	};
-	var login=function() {
-		$('#login-submit').on('click',function(){
-			alert('login-submit click!!');
-		});
-	    $('#login-form-link').on('click',function(e) {
-	    	alert('login-form-link click');
-			$("#login-form").delay(100).fadeIn(100);
-	 		$("#register-form").fadeOut(100);
-			$('#register-form-link').removeClass('active');
-			$(this).addClass('active');
-			e.preventDefault();
-		});
-		$('#register-form-link').on('click',function(e) {
-			alert('register-form-link');
-			$("#register-form").delay(100).fadeIn(100);
-	 		$("#login-form").fadeOut(100);
-			$('#login-form-link').removeClass('active');
-			$(this).addClass('active');
-			e.preventDefault();
-		});
-
+		$('#wrapper').load(ctx+'/permission/form');
 	};
 	return {
-		init: init,
-		login: login
+		init: init
 	};
 })();
+
+
 
 app.info=(function(){
 	var _name,_age,_gen,_job;
@@ -1192,13 +1171,442 @@ app.component=(function(){
 	    	});
 	    	table+='</tbody></table>';
 	    	return table;
-	    }
+	    },
+	    inputRegister: function(type,name,placeholder){
+	    	return $('<div class="form-group">'
+					+'<input type="'+type+'" name="'+name+'" id="'+name+'" tabindex="1" class="form-control" placeholder="'+placeholder+'">'
+					+'</div>');
+	    },
+	    inputButton: function(type,name,value){
+	    	return $('<div class="form-group">'
+					+'<input type="'+type+'" name="'+name+'" id="'+name+'" tabindex="1"  class="btn-confirm" value="'+value+'">'
+					+'</div>');
+	    },
+	    btnRegister: function(name){
+	    	return $('<div class="form-group">'
+					+'<div class="row">'
+					+'<div class="col-sm-6 col-sm-offset-3">'
+					+'<input type="submit" name="'+name+'" id="'+name+'" tabindex="4" class="form-control btn btn-register" value="Register Now">'
+					+'</div>'
+					+'</div>'
+					+'</div>');
+	    },
+	    radio: function(id,name,value,html){
+	    	return $('<label class="radio-inline">'
+					+'<input id="'+id+'" type="radio" name="'+name+'" value="'+value+'">'+html
+					+'</label>');
+	    },
+	    patientGnb: function(){
+	    	var gnb = '<div class="index_gnbtab wtac" style="position: relative; top: 125px;"><ul class="index_gnb">';
+	    	var arr = ['home/홈으로','mypage/MY PAGE','treatlist/나의 진료기록','board/게시판','customer/고객참여마당','main/로그아웃'];
+	    	for(var i=0; i<6; i++){
+	    		gnb+='<li><a class="index_gnb_index" href="'+arr[i].split("/")[0]+'">'+arr[i].split("/")[1]+'</a></li>'   
+	    	}
+			gnb += '</ul></div>';
+	    	return gnb;
+	    },
+	    patientDetail: function(){
+			return '<style>'
+			+'.pat_detail {text-align: center; margin:0 auto;}'
+			+'.pat_detail tr td{border: 1px solid #bbbbbb}'
+			+'</style>'
+			+'<div style="margin-top:50px; margin-bottom:50px; text-align:center; width:100%">'
+			      +'<h1>진료기록부 </h1>'
+			     +'<div>'
+			            +'<table class="pat_detail">'
+			                 +'<tr style="text-align: left;">'
+			                        +'<td colspan="5"><div><img src="${context}/resources/img/common/defaultimg.jpg" alt="" width="160px"/></div></td>'
+			                  +'</tr>'
+			                  +'<tr>'
+			                        +'<td style="width: 60px" rowspan="5"><span style="font-size: 20px">내<br>정<br>보</span></td>'
+			                        +'<td style="width: 100px">이름</td>'
+			                       +'<td style="width: 150px" id="name"></td>'
+			                        +'<td style="width: 100px">직업</td>'
+			                        +'<td style="width: 150px" id="job"></td>'
+			                  +'</tr>'
+			                  +'<tr>'
+			                  +'<td>생년월일</td>'
+			                  +'<td id="birth"></td>'
+			                  +'<td>키</td>'
+			                  +'<td>180cm</td>'
+			                  +'</tr>'
+			                  +'<tr>'
+			                  +'<td>성별</td>'
+			                  +'<td id="gen"></td>'
+			                  +'<td>나이/몸무게</td>'
+			                  +'<td id="age"></td>'
+			                  +'</tr>'
+			                  +'<tr>'
+			                  +'<td>전화번호</td>'
+			                  +'<td id="phone"></td>'
+			                  +'<td>혈액형</td>'
+			                  +'<td>AB</td>'
+			                  +'</tr>'
+			                  +'<tr>'
+			                  +'<td>주소</td>'
+			                  +'<td id="addr"></td>'
+			                  +'<td>주치의</td>'
+			                  +'<td><a onclick="docDetail()" href="#" id="docId"></a></td>'
+			                  +'</tr>'
+			                  +'</table>'
+			                  +'</div>'
+			                  +'</div>';
+		}
 	};
 })();
-app.login=(function(){
-	
+
+app.permission=(function(){
+		var execute=function() {
+		var ctx=app.session.getContextPath();
+		$('#login-submit').on('click',function(e){
+			console.log('app.login의 ctx: '+ctx);
+			e.preventDefault();//default를 사용하지 않겠다.
+			$.ajax({
+				 url: ctx+"/login",
+				 method: "POST",
+				 data: JSON.stringify({ 
+					 id : $('#username').val(), 
+					 password: $('#password').val()
+				 }), 
+				 dataType: "json",
+				 contentType: 'application/json',
+				 success: function(data){
+					 console.log(data.group);
+					 alert(data.group);
+					 if(data.group==='fail'){
+						 alert('존재하지않는 ID입니다.');
+					 }else{						 
+						 alert(data.patient.name+'님 환영합니다.');
+						 $('#wrapper').html(app.component.patientGnb());
+						 $('#wrapper').append(app.component.patientDetail());
+						 $('#name').text(data.patient.name);
+						 $('#job').text(data.patient.job);
+						 $('#birth').text(data.patient.jumin);
+						 $('#gen').text(data.patient.gen);
+						 $('#age').text(data.patient.jumin);
+						 $('#phone').text(data.patient.phone);
+						 $('#addr').text(data.patient.addr);
+						 $('#docId').text(data.patient.docID);
+					 }
+				 },
+				 error: function(xhr,status,msg){
+					 alert('로그인 실패이유:'+msg);
+				 }
+			});
+		});
+	    $('#login-form-link').on('click',function(e) {
+			$("#login-form").delay(100).fadeIn(100);
+	 		$("#register-form").fadeOut(100);
+			$('#register-form-link').removeClass('active');
+			$(this).addClass('active');
+			e.preventDefault();
+		});
+		$('#register-form-link').on('click',function(e) {
+			$("#register-form").delay(100).fadeIn(100);
+	 		$("#login-form").fadeOut(100);
+			$('#login-form-link').removeClass('active');
+			$(this).addClass('active');
+			e.preventDefault();
+			$('#common-info').empty();
+			$('#incommon-info').empty();
+			app.component.inputRegister('text','id','id').appendTo('#common-info');
+			app.component.inputRegister('password','pass','password').appendTo('#common-info');
+			app.component.inputRegister('password','confirm-pass','confirm password').appendTo('#common-info');
+			app.component.inputButton('button','btn-confirm','확인').appendTo('#common-info');
+			app.component.inputRegister('text','name','name').appendTo('#common-info');
+			app.component.radio('gen-M','gen','male','M').appendTo('#common-info');
+			app.component.radio('gen-F','gen','female','F').appendTo('#common-info');
+			app.component.inputRegister('text','phone','phone').appendTo('#common-info');
+			app.component.inputRegister('text','email','email').appendTo('#common-info');
+			app.component.inputRegister('text','job','job').appendTo('#incommon-info');
+			app.component.inputRegister('text','jumin','birth').appendTo('#incommon-info');
+			app.component.inputRegister('text','addr','address').appendTo('#incommon-info');
+			app.component.btnRegister('register-patient').appendTo('#incommon-info');
+			$('#register-patient').on('click',function(e){
+				e.preventDefault();
+				var _id=$('#id').val();
+				var _pass=$('#pass').val();
+				var _name=$('#name').val();
+				var _addr=$('#addr').val();
+				var _jumin=$('#jumin').val();
+				var _job=$('#job').val();
+				var _gen=$('#gen-M').checked ? 'M' : 'F';
+				if(app.util.validation(_id)&&app.util.validation(_pass)&&app.util.validation(_name)&&app.util.validation(_addr)&&app.util.validation(_jumin)&&app.util.validation(_job)&&app.util.validation(_gen)){
+					var json={
+							id: _id,
+							pass: _pass,
+							name: _name,
+							phone: $('#phone').val(),
+							gen: _gen,
+							addr: _addr,
+							email: $('#email').val(),
+							jumin: _jumin,
+							job: _job
+					};
+					$.ajax({
+						url: ctx+"/post/patient",
+						method: "POST",
+						data: JSON.stringify(json),
+						dataType: "json",
+						contentType: 'application/json',
+						success: function(data){
+							alert(data.name+'님 회원가입 축하드립니다.');
+							$("#login-form").delay(100).fadeIn(100);
+					 		$("#register-form").fadeOut(100);
+							$('#register-form-link').removeClass('active');
+							$(this).addClass('active');
+						},
+						error: function(a,b,msg){
+							alert('회원가입 실패 이유:'+msg);
+						}
+					});
+				}else{
+					alert('반드시 입력될 값이 비었습니다.')
+				}
+				
+			});
+			$('#radioPat').on('click',function(e){
+				e.preventDefault();
+				$('#incommon-info').empty();
+				app.component.inputRegister('text','job','job').appendTo('#incommon-info');
+				app.component.inputRegister('text','jumin','birth').appendTo('#incommon-info');
+				app.component.inputRegister('text','addr','address').appendTo('#incommon-info');
+				app.component.btnRegister('register-patient').appendTo('#incommon-info');
+				$('#register-patient').on('click',function(e){
+					e.preventDefault();
+					var _id=$('#id').val();
+					var _pass=$('#pass').val();
+					var _name=$('#name').val();
+					var _addr=$('#addr').val();
+					var _jumin=$('#jumin').val();
+					var _job=$('#job').val();
+					var _gen=$('#gen-M').checked ? 'M' : 'F';
+					if(app.util.validation(_id)&&app.util.validation(_pass)&&app.util.validation(_name)&&app.util.validation(_addr)&&app.util.validation(_jumin)&&app.util.validation(_job)&&app.util.validation(_gen)){
+						var json={
+								id: _id,
+								pass: _pass,
+								name: _name,
+								phone: $('#phone').val(),
+								gen: _gen,
+								addr: _addr,
+								email: $('#email').val(),
+								jumin: _jumin,
+								job: _job
+						};
+						$.ajax({
+							url: ctx+"/post/patient",
+							method: "POST",
+							data: JSON.stringify(json),
+							dataType: "json",
+							contentType: 'application/json',
+							success: function(data){
+								alert(data.name+'님 회원가입 축하드립니다.');
+								$("#login-form").delay(100).fadeIn(100);
+						 		$("#register-form").fadeOut(100);
+								$('#register-form-link').removeClass('active');
+								$(this).addClass('active');
+							},
+							error: function(a,b,msg){
+								alert('회원가입 실패 이유:'+msg);
+							}
+						});
+					}else{
+						alert('반드시 입력될 값이 비었습니다.')
+					}
+					
+				});
+			});
+			$('#radioDoc').on('click',function(e){
+				e.preventDefault();
+				$('#incommon-info').empty();
+				app.component.inputRegister('text','major-treat','major treat').appendTo('#incommon-info');
+				app.component.inputRegister('text','position','position').appendTo('#incommon-info');
+				app.component.btnRegister('register-doctor').appendTo('#incommon-info');
+				$('#register-doctor').on('click',function(e){
+					alert('버튼 클릭 password:'+$('#pass').val());
+					e.preventDefault();
+					var _id=$('#id').val();
+					var _pass=$('#pass').val();
+					var _name=$('#name').val();
+					var _email=$('#email').val();
+					var _major=$('#major-treat').val();
+					var _position=$('#position').val();
+					var _gen=$('#gen-M').checked ? 'M' : 'F';
+					alert('gen:' + _gen)
+					if(app.util.validation(_id)&&app.util.validation(_pass)&&app.util.validation(_name)&&app.util.validation(_email)&&app.util.validation(_major)&&app.util.validation(_position)&&app.util.validation(_gen)){
+						var json={
+								id: _id,
+								pass: _pass,
+								name: _name,
+								phone: $('#phone').val(),
+								gen: _gen,
+								email: _email,
+								major: _major,
+								position: _position
+						};
+						$.ajax({
+							url: ctx+"/post/doctor",
+							method: "POST",
+							data: JSON.stringify(json),
+							dataType: "json",
+							contentType: 'application/json',
+							success: function(data){
+								alert(data.name+'님 회원가입 축하드립니다.');
+								location.reload();
+							},
+							error: function(a,b,msg){
+								alert('회원가입 실패 이유:'+msg);
+							}
+						});
+					}else{
+						alert('반드시 입력될 값이 비었습니다.')
+					}
+					
+				});
+			});
+			$('#radioNur').on('click',function(){
+				e.preventDefault();
+				$('#incommon-info').empty();
+				app.component.inputRegister('text','major-job','major job').appendTo('#incommon-info');
+				app.component.inputRegister('text','position','position').appendTo('#incommon-info');
+				app.component.btnRegister('register-nurse').appendTo('#incommon-info');
+				$('#register-nurse').on('click',function(e){
+					alert('버튼 클릭 password:'+$('#pass').val());
+					e.preventDefault();
+					var _id=$('#id').val();
+					var _pass=$('#pass').val();
+					var _name=$('#name').val();
+					var _major=$('#major-job').val();
+					var _position=$('#position').val();
+					var _gen=$('#gen-M').checked ? 'M' : 'F';
+					alert('gen:' + _gen)
+					if(app.util.validation(_id)&&app.util.validation(_pass)&&app.util.validation(_name)&&app.util.validation(_major)&&app.util.validation(_position)&&app.util.validation(_gen)){
+						var json={
+								id: _id,
+								pass: _pass,
+								name: _name,
+								phone: $('#phone').val(),
+								gen: _gen,
+								email: $('#email').val(),
+								major: _major,
+								position: _position
+						};
+						$.ajax({
+							url: ctx+"/post/nurse",
+							method: "POST",
+							data: JSON.stringify(json),
+							dataType: "json",
+							contentType: 'application/json',
+							success: function(data){
+								alert(data.name+'님 회원가입 축하드립니다.');
+								$("#login-form").delay(100).fadeIn(100);
+						 		$("#register-form").fadeOut(100);
+								$('#register-form-link').removeClass('active');
+								$(this).addClass('active');
+							},
+							error: function(a,b,msg){
+								alert('회원가입 실패 이유:'+msg);
+							}
+						});
+					}else{
+						alert('반드시 입력될 값이 비었습니다.')
+					}
+					
+				});
+			});
+			$('#radioAdmin').on('click',function(){
+			});
+			
+		});
+		$('#register-admin').on('click',function(e){
+			e.preventDefault();
+			$.ajax({
+				url: ctx+"/post/admin",
+				method: "POST"
+				
+			});
+		});
+	};
+	var email=function emailcheck(strValue){
+		var regExp = /[0-9a-zA-Z][_0-9a-zA-Z-]*@[_0-9a-zA-Z-]+(\.[_0-9a-zA-Z-]+){1,2}$/;
+		//입력을 안했으면
+		if(strValue.lenght == 0)
+		{return false;}
+		//이메일 형식에 맞지않으면
+		if (!strValue.match(regExp))
+		{return false;}
+		return true;
+	};
+	return{
+		execute: execute,
+		email: email};
 })();
+
+app.patient={
+		gnb: function(){
+			var gnb = '<div class="index_gnbtab wtac" style="position: relative; top: 125px;"><ul class="index_gnb">';
+	    	   var arr = ['home/홈으로','mypage/MY PAGE','treatlist/나의 진료기록','board/게시판','customer/고객참여마당','main/로그아웃'];
+	    	   for(var i=0; i<6; i++){
+	    		   gnb+='<li><a class="index_gnb_index" href="'+arr[i].split("/")[0]+'">'+arr[i].split("/")[1]+'</a></li>'   
+	    	   }
+			   gnb += '</ul></div>';
+	    	   return gnb;
+		},
+		detail: function(){
+			'<style>'
+			+'.pat_detail {text-align: center; margin:0 auto;}'
+			+'.pat_detail tr td{border: 1px solid #bbbbbb}'
+			+'</style>'
+			+'<div style="margin-top:50px; margin-bottom:50px; text-align:center; width:100%">'
+			      +'<h1>진료기록부 </h1>'
+			     +'<div>'
+			            +'<table class="pat_detail">'
+			                 +'<tr style="text-align: left;">'
+			                        +'<td colspan="5"><div><img src="${context}/resources/img/common/defaultimg.jpg" alt="" width="160px"/></div></td>'
+			                  +'</tr>'
+			                  +'<tr>'
+			                        +'<td style="width: 60px" rowspan="5"><span style="font-size: 20px">내<br>정<br>보</span></td>'
+			                        +'<td style="width: 100px">이름</td>'
+			                       +'<td style="width: 150px">${user.name}</td>'
+			                        +'<td style="width: 100px">직업</td>'
+			                        +'<td style="width: 150px">${user.job}</td>'
+			                  +'</tr>'
+			                  +'<tr>'
+			                  +'<td>생년월일</td>'
+			                  +'<td>${birth}</td>'
+			                  +'<td>키</td>'
+			                  +'<td>180cm</td>'
+			                  +'</tr>'
+			                  +'<tr>'
+			                  +'<td>성별</td>'
+			                  +'<td>${user.gen}</td>'
+			                  +'<td>나이/몸무게</td>'
+			                  +'<td>${age}</td>'
+			                  +'</tr>'
+			                  +'<tr>'
+			                  +'<td>전화번호</td>'
+			                  +'<td>${user.phone}</td>'
+			                  +'<td>혈액형</td>'
+			                  +'<td>AB</td>'
+			                  +'</tr>'
+			                  +'<tr>'
+			                  +'<td>주소</td>'
+			                  +'<td>${user.addr}</td>'
+			                  +'<td>주치의</td>'
+			                  +'<td><a onclick="docDetail()" href="#">한석규</a></td>'
+			                  +'</tr>'
+			                  +'</table>'
+			                  +'</div>'
+			                  +'</div>'
+		}	
+};
+
 app.navi=(function(){})();
+app.util={
+	validation: function(x){
+		return (x!="");
+	}	
+};
 app.patient=(function(){})();
 app.algorithm.TABLE='<div style="width:100%">'
 	+'<table style="margin: 0 auto; width:500px; height:300px; border-collapse: collapse; border: 1px solid black;">'
@@ -1218,7 +1626,6 @@ app.oop.OOP_MENU='<ul class="list-group">'
 	+ '<li id="selectSort" class="list-group-item"><a href="#">캡슐화</a></li>'
 	+ '<li id="bubbleSort" class="list-group-item"><a href="#">상속</a></li>'
 	+ '<li id="insertSort" class="list-group-item"><a href="#">다형성</a></li></ul>';
-
 
 
 

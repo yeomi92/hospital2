@@ -74,11 +74,11 @@ public class PersonService {
 		Patient patient=(Patient) person.getInfo();
 		patient.getId();
 		logger.info("PersonService putPatient() {}",patient.getId()+"====pat_id!!");
-		 patient.getGen();
-	      patient.setJob("환자");
-	      patient.getJumin();
-	      patient.getName();
-	      logger.info("PermissionController() {}", patient + "===update진입===");
+		patient.getGen();
+	    patient.setJob("환자");
+	    patient.getJumin();
+	    patient.getName();
+	    logger.info("PermissionController() {}", patient + "===update진입===");
 		return map;
 	}
 	public Map<?,?> putDoctor(Object target){
@@ -120,4 +120,9 @@ public class PersonService {
 		Map<?,?>map=new HashMap<>();
 		return map;
 	}	
+	
+	public Integer exist(Map<?,?>map) throws Exception{
+		IGetService exist=(paramMap)->mapper.exist(paramMap);
+		return (Integer) exist.execute(map);
+	}
 }

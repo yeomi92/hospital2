@@ -38,7 +38,7 @@
 	</resultMap>
 	
 	<insert id="registPatient">
-		INSERT INTO ${group}(pat_id, nur_id, doc_id, pat_pass, pat_name, pat_gen, pat_jumin, pat_addr, pat_phone, pat_email, pat_job) VALUES (#{id},#{nurID},${docID},${pass},${name},${gen},${jumin},${addr},${phone},${email},${job})
+		INSERT INTO ${group}(pat_id, nur_id, doc_id, pat_pass, pat_name, pat_gen, pat_jumin, pat_addr, pat_phone, pat_email, pat_job) VALUES (#{id},#{nurID},#{docID},#{pass},#{name},#{gen},#{jumin},#{addr},#{phone},#{email},#{job})
 	</insert>
 	<insert id="registDoctor">
 		INSERT INTO ${group}(doc_id, doc_pass, major_treat, doc_name, doc_gen, doc_phone, doc_email, doc_position) VALUES (#{id},#{pass},#{major},#{name},#{gen},#{phone},#{email},#{position})
@@ -48,13 +48,13 @@
 	</insert>
 	
 	<select id="findPatient" resultMap="Patient" parameterType="hashMap">
-		SELECT * FROM ${group} WHERE ${key} = #{value}
+		SELECT * FROM ${group} WHERE ${idType} = #{id}
 	</select>
 	<select id="findDoctor" resultMap="Doctor" parameterType="hashMap">
-		SELECT * FROM ${group} WHERE ${key} = #{value}
+		SELECT * FROM ${group} WHERE ${idType} = #{id}
 	</select>
 	<select id="findNurse" resultMap="Nurse" parameterType="hashMap">
-		SELECT * FROM ${group} WHERE ${key} = #{value}
+		SELECT * FROM ${group} WHERE ${idType} = #{id}
 	</select>
 	
 	<select id="findPatients" resultMap="Patient" parameterType="hashMap">
@@ -93,7 +93,7 @@
 		select count(*) from ${group}
 	</select>
 	<select id="exist" resultType="int" parameterType="hashMap">
-		select count(*) from ${group} where ${key} = #{value}
+		select count(*) from ${group} where ${idType}=#{id}
 	</select>
 	
 	<update id="updatePatient">
