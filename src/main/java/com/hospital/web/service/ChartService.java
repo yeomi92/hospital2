@@ -21,8 +21,8 @@ public class ChartService {
 	@SuppressWarnings("unchecked")
 	public List<Chart> chartList(Map<?,?> paramMap)throws Exception{
 		logger.info("ChartService chartList() {}","enter");
-		IListService service=(map)->mapper.findChart(map);
-		List<Chart>list=service.execute(paramMap);
+		IGetService service=(map)->mapper.findChart(map);
+		List<Chart>list=(List<Chart>) service.execute(paramMap);
 		logger.info("ChartService chartList()의 list: {}",list);
 		return list;
 	}
