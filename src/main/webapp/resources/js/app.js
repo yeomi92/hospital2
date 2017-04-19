@@ -1,3 +1,33 @@
+/*
+========= app-meta ==========
+app-algorithm 
+	app-algorithm-series
+	app-algorithm-array
+	app-algorithm-matrix
+	app-algorithm-math
+	app-algorithm-application
+app-component
+	app-component-button
+	app-component-input
+	app-component-alert
+	app-component-list
+	app-component-table
+app-context
+app-oop
+	app-oop-encapsulation
+	app-oop-inheritance
+	app-oop-polymorphism
+app-permission
+app-person
+	app-person-patient
+	app-person-doctor
+	app-person-nurse
+	app-person-admin
+app-session
+app-ui
+app-util
+==============================
+*/
 var app=app||{}; //namespace pattern
 /*************************************************************************************
  * Model-logic
@@ -49,18 +79,15 @@ app.session=(function(){
 		getImagePath: getImagePath
 	};
 })();
-
-//util
-
-series=(function(){})();
-arr=(function(){})();
-aSeries=function(){};
-
-
-
-//algorithm
+/*
+========= app-algorithm ====
+@AUTHOR : yheisun@gmail.com
+@CREATE DATE : 2017-4-19
+@UPDATE DATE : 2017-4-19
+@DESC : 알고리즘
+==============================
+*/
 app.algorithm=(function(){
-	/*알고리즘 수열*/
 	var init=function(){
 		onCreate();
 	};
@@ -1024,6 +1051,7 @@ app.algorithm=(function(){
 		appl: appl
 	};
 })();
+
 app.oop=(function(){
 	var init=function(){
 		onCreate();
@@ -1133,18 +1161,46 @@ app.component=(function(){
 	    div: function(id){
 	    	return $(id);
 	    },
+	    /*app-component-button*/
 	    aButton: function(id,type){
 	    	return $('<a id="'+id+'" href="#" class="btn '+type+'" role="button">Button</a>');
 	    },
 	    bButton: function(id,type){
 	    	return $('<button id="'+id+'" type="button" class="btn '+type+'">Button</button>');
 	    },
+	    btnRegister: function(name){
+	    	return $('<div class="form-group">'
+					+'<div class="row">'
+					+'<div class="col-sm-6 col-sm-offset-3">'
+					+'<input type="submit" name="'+name+'" id="'+name+'" tabindex="4" class="form-control btn btn-register" value="Register Now">'
+					+'</div>'
+					+'</div>'
+					+'</div>');
+	    },
+	    radioBtn: function(id,name,value,html){
+	    	return $('<label class="radio-inline">'
+					+'<input id="'+id+'" type="radio" name="'+name+'" value="'+value+'">'+html
+					+'</label>');
+	    },
+	    /*app-component-input*/
 	    inputText: function(id){
 	    	return $('<input id="'+id+'" type="text" class="form-control" placeholder="example" aria-describedby="basic-addon1">');
 	    },
+	    inputRegister: function(type,name,placeholder){
+	    	return $('<div class="form-group">'
+	    			+'<input type="'+type+'" name="'+name+'" id="'+name+'" tabindex="1" class="form-control" placeholder="'+placeholder+'">'
+	    			+'</div>');
+	    },
+	    inputButton: function(type,name,value){
+	    	return $('<div class="form-group">'
+	    			+'<input type="'+type+'" name="'+name+'" id="'+name+'" tabindex="1"  class="btn-confirm" value="'+value+'">'
+	    			+'</div>');
+	    },
+	    /*app-component-alert*/
 	    divAlert: function(type){
 	    	return $('<div class="alert '+type+'" role="alert">example</div>');
 	    },
+	    /*app-component-list*/
 	    horList: function(arr,i){
 	    	var type='';
 	    	switch(i){
@@ -1157,6 +1213,7 @@ app.component=(function(){
 	    	list+='</div>';
 	    	return list;
 	    },
+	    /*app-component-table*/
 	    panelTable: function(json,txt,type){
 	    	var table=
 	    		'<div class="panel panel-'+type+'">'
@@ -1171,87 +1228,7 @@ app.component=(function(){
 	    	});
 	    	table+='</tbody></table>';
 	    	return table;
-	    },
-	    inputRegister: function(type,name,placeholder){
-	    	return $('<div class="form-group">'
-					+'<input type="'+type+'" name="'+name+'" id="'+name+'" tabindex="1" class="form-control" placeholder="'+placeholder+'">'
-					+'</div>');
-	    },
-	    inputButton: function(type,name,value){
-	    	return $('<div class="form-group">'
-					+'<input type="'+type+'" name="'+name+'" id="'+name+'" tabindex="1"  class="btn-confirm" value="'+value+'">'
-					+'</div>');
-	    },
-	    btnRegister: function(name){
-	    	return $('<div class="form-group">'
-					+'<div class="row">'
-					+'<div class="col-sm-6 col-sm-offset-3">'
-					+'<input type="submit" name="'+name+'" id="'+name+'" tabindex="4" class="form-control btn btn-register" value="Register Now">'
-					+'</div>'
-					+'</div>'
-					+'</div>');
-	    },
-	    radio: function(id,name,value,html){
-	    	return $('<label class="radio-inline">'
-					+'<input id="'+id+'" type="radio" name="'+name+'" value="'+value+'">'+html
-					+'</label>');
-	    },
-	    patientGnb: function(){
-	    	var gnb = '<div class="index_gnbtab wtac" style="position: relative; top: 125px;"><ul class="index_gnb">';
-	    	var arr = ['home/홈으로','mypage/MY PAGE','treatlist/나의 진료기록','board/게시판','customer/고객참여마당','main/로그아웃'];
-	    	for(var i=0; i<6; i++){
-	    		gnb+='<li><a class="index_gnb_index" href="'+arr[i].split("/")[0]+'">'+arr[i].split("/")[1]+'</a></li>'   
-	    	}
-			gnb += '</ul></div>';
-	    	return gnb;
-	    },
-	    patientDetail: function(){
-			return '<style>'
-			+'.pat_detail {text-align: center; margin:0 auto;}'
-			+'.pat_detail tr td{border: 1px solid #bbbbbb}'
-			+'</style>'
-			+'<div style="margin-top:50px; margin-bottom:50px; text-align:center; width:100%">'
-			      +'<h1>진료기록부 </h1>'
-			     +'<div>'
-			            +'<table class="pat_detail">'
-			                 +'<tr style="text-align: left;">'
-			                        +'<td colspan="5"><div><img src="${context}/resources/img/common/defaultimg.jpg" alt="" width="160px"/></div></td>'
-			                  +'</tr>'
-			                  +'<tr>'
-			                        +'<td style="width: 60px" rowspan="5"><span style="font-size: 20px">내<br>정<br>보</span></td>'
-			                        +'<td style="width: 100px">이름</td>'
-			                       +'<td style="width: 150px" id="name"></td>'
-			                        +'<td style="width: 100px">직업</td>'
-			                        +'<td style="width: 150px" id="job"></td>'
-			                  +'</tr>'
-			                  +'<tr>'
-			                  +'<td>생년월일</td>'
-			                  +'<td id="birth"></td>'
-			                  +'<td>키</td>'
-			                  +'<td>180cm</td>'
-			                  +'</tr>'
-			                  +'<tr>'
-			                  +'<td>성별</td>'
-			                  +'<td id="gen"></td>'
-			                  +'<td>나이/몸무게</td>'
-			                  +'<td id="age"></td>'
-			                  +'</tr>'
-			                  +'<tr>'
-			                  +'<td>전화번호</td>'
-			                  +'<td id="phone"></td>'
-			                  +'<td>혈액형</td>'
-			                  +'<td>AB</td>'
-			                  +'</tr>'
-			                  +'<tr>'
-			                  +'<td>주소</td>'
-			                  +'<td id="addr"></td>'
-			                  +'<td>주치의</td>'
-			                  +'<td><a onclick="docDetail()" href="#" id="docId"></a></td>'
-			                  +'</tr>'
-			                  +'</table>'
-			                  +'</div>'
-			                  +'</div>';
-		}
+	    }
 	};
 })();
 
@@ -1259,7 +1236,6 @@ app.permission=(function(){
 		var execute=function() {
 		var ctx=app.session.getContextPath();
 		$('#login-submit').on('click',function(e){
-			console.log('app.login의 ctx: '+ctx);
 			e.preventDefault();//default를 사용하지 않겠다.
 			$.ajax({
 				 url: ctx+"/login",
@@ -1271,22 +1247,49 @@ app.permission=(function(){
 				 dataType: "json",
 				 contentType: 'application/json',
 				 success: function(data){
-					 console.log(data.group);
-					 alert(data.group);
 					 if(data.group==='fail'){
 						 alert('존재하지않는 ID입니다.');
 					 }else{						 
 						 alert(data.patient.name+'님 환영합니다.');
-						 $('#wrapper').html(app.component.patientGnb());
-						 $('#wrapper').append(app.component.patientDetail());
+						 $('#boot-nav').remove();
+						 $('#wrapper').html(app.ui.patientGnb());
+						 $('#wrapper').append(app.ui.patientDetail());
+						 var jumin=data.patient.jumin;
+						 console.log('jumin: '+jumin);
+						 var birth='';
+						 var age=0;
 						 $('#name').text(data.patient.name);
 						 $('#job').text(data.patient.job);
-						 $('#birth').text(data.patient.jumin);
+						 $('#birth').text(birth);
 						 $('#gen').text(data.patient.gen);
-						 $('#age').text(data.patient.jumin);
+						 $('#age').text(age+' / 80kg');
 						 $('#phone').text(data.patient.phone);
 						 $('#addr').text(data.patient.addr);
-						 $('#docId').text(data.patient.docID);
+						 $('#docName').text(data.docName);
+						 $('#btn-default').on('click',function(e){
+							 e.preventDefault();
+							 $('#wrapper').html(app.ui.patientGnb());
+							 $('#wrapper').append(app.ui.chart());
+							 $.ajax({
+								 url:ctx+'/chart',
+								 method:'POST',
+								 data:JSON.stringify({
+									 id: data.patient.id
+								 }),
+								 dataType:'json',
+								 contentType:'application/json',
+								 success:function(data){
+									 if(data.result==='fail'){
+										 alert('차트 없음');
+									 }else{
+										 alert('차트 있음');
+									 }
+								 },
+								 error:function(xhr,status,msg){alert(msg);}
+							 });
+							 
+							 
+						 });
 					 }
 				 },
 				 error: function(xhr,status,msg){
@@ -1314,8 +1317,8 @@ app.permission=(function(){
 			app.component.inputRegister('password','confirm-pass','confirm password').appendTo('#common-info');
 			app.component.inputButton('button','btn-confirm','확인').appendTo('#common-info');
 			app.component.inputRegister('text','name','name').appendTo('#common-info');
-			app.component.radio('gen-M','gen','male','M').appendTo('#common-info');
-			app.component.radio('gen-F','gen','female','F').appendTo('#common-info');
+			app.component.radioBtn('gen-M','gen','male','M').appendTo('#common-info');
+			app.component.radioBtn('gen-F','gen','female','F').appendTo('#common-info');
 			app.component.inputRegister('text','phone','phone').appendTo('#common-info');
 			app.component.inputRegister('text','email','email').appendTo('#common-info');
 			app.component.inputRegister('text','job','job').appendTo('#incommon-info');
@@ -1527,7 +1530,7 @@ app.permission=(function(){
 			});
 		});
 	};
-	var email=function emailcheck(strValue){
+	var emailcheck=function(strValue){
 		var regExp = /[0-9a-zA-Z][_0-9a-zA-Z-]*@[_0-9a-zA-Z-]+(\.[_0-9a-zA-Z-]+){1,2}$/;
 		//입력을 안했으면
 		if(strValue.lenght == 0)
@@ -1539,75 +1542,176 @@ app.permission=(function(){
 	};
 	return{
 		execute: execute,
-		email: email};
+		emailcheck: emailcheck};
 })();
 
-app.patient={
-		gnb: function(){
-			var gnb = '<div class="index_gnbtab wtac" style="position: relative; top: 125px;"><ul class="index_gnb">';
-	    	   var arr = ['home/홈으로','mypage/MY PAGE','treatlist/나의 진료기록','board/게시판','customer/고객참여마당','main/로그아웃'];
-	    	   for(var i=0; i<6; i++){
-	    		   gnb+='<li><a class="index_gnb_index" href="'+arr[i].split("/")[0]+'">'+arr[i].split("/")[1]+'</a></li>'   
-	    	   }
-			   gnb += '</ul></div>';
-	    	   return gnb;
+app.navi=(function(){})();
+
+/*
+========= app-ui ====
+@AUTHOR : pakjkwan@gmail.com
+@CREATE DATE : 2017-4-1
+@UPDATE DATE : 2017-4-1
+@DESC : 
+==============================
+*/
+app.ui={
+		algorithmArrayTable : function(){
+			return '<div class="row">'
+		    +'<div class="col-sm-12">'
+		    +'<div class="panel colourable">'
+		    +'<div class="panel-heading">'
+		    +'<span class="panel-title">IDC 2D Map</span>'
+		    +'</div>'
+		    +'<div class="panel-body">'
+		    +    '<div class="init-table">'
+		    +        '<span>Make Map</span>'
+		    +        '<input type="text" id="mRow" placeholder="가로 행">'
+		    +        '<input type="text" id="mCol" placeholder="세로 열">'
+		    +        '<button type="submit" class="tc-btn btn btn-default">Create</button>'
+		    +    '</div>'
+		    +    '<div class="control-box" style="display: none;">'
+		    +        '<span class="btn mRow-add">가로 행 추가 <i class="fa fa-plus"></i></span>'
+		    +        '<span class="btn mRow-del">가로 행 제거 <i class="fa fa-minus"></i></span>'
+		    +        '<span class="btn mCol-add">세로 열 추가 <i class="fa fa-plus"></i></span>'
+		    +        '<span class="btn mCol-del">세로 열 제거 <i class="fa fa-minus"></i></span>'
+		    +    '</div>'
+		    +    '<div class="show-map text-center" style="padding-top: 15px;"><span>Not exist map. first, create map.</span></div>'
+		    +'</div>'
+		    +'</div>'
+		    +'</div>'
+		    +'</div>';
 		},
-		detail: function(){
-			'<style>'
-			+'.pat_detail {text-align: center; margin:0 auto;}'
-			+'.pat_detail tr td{border: 1px solid #bbbbbb}'
-			+'</style>'
-			+'<div style="margin-top:50px; margin-bottom:50px; text-align:center; width:100%">'
-			      +'<h1>진료기록부 </h1>'
-			     +'<div>'
-			            +'<table class="pat_detail">'
-			                 +'<tr style="text-align: left;">'
-			                        +'<td colspan="5"><div><img src="${context}/resources/img/common/defaultimg.jpg" alt="" width="160px"/></div></td>'
-			                  +'</tr>'
-			                  +'<tr>'
-			                        +'<td style="width: 60px" rowspan="5"><span style="font-size: 20px">내<br>정<br>보</span></td>'
-			                        +'<td style="width: 100px">이름</td>'
-			                       +'<td style="width: 150px">${user.name}</td>'
-			                        +'<td style="width: 100px">직업</td>'
-			                        +'<td style="width: 150px">${user.job}</td>'
-			                  +'</tr>'
-			                  +'<tr>'
-			                  +'<td>생년월일</td>'
-			                  +'<td>${birth}</td>'
-			                  +'<td>키</td>'
-			                  +'<td>180cm</td>'
-			                  +'</tr>'
-			                  +'<tr>'
-			                  +'<td>성별</td>'
-			                  +'<td>${user.gen}</td>'
-			                  +'<td>나이/몸무게</td>'
-			                  +'<td>${age}</td>'
-			                  +'</tr>'
-			                  +'<tr>'
-			                  +'<td>전화번호</td>'
-			                  +'<td>${user.phone}</td>'
-			                  +'<td>혈액형</td>'
-			                  +'<td>AB</td>'
-			                  +'</tr>'
-			                  +'<tr>'
-			                  +'<td>주소</td>'
-			                  +'<td>${user.addr}</td>'
-			                  +'<td>주치의</td>'
-			                  +'<td><a onclick="docDetail()" href="#">한석규</a></td>'
-			                  +'</tr>'
-			                  +'</table>'
-			                  +'</div>'
-			                  +'</div>'
-		}	
+		algorithmTable : function(){
+			return '<table id="table" style="width:800px;height:300px;border-collapse: collapse;border: 1px solid black;margin:0 auto">'
+			+	'<tr style="border: 1px solid black;">'
+			+		'<td id="tableLeft" style="width: 50%;border: 1px solid black;"></td>'
+			+		'<td id="tableRight" style="width: 50%;border: 1px solid black;"></td>'
+			+	'</tr>'
+			+'</table>';
+		},
+		algorithmSeriesMenu : function(){
+			return '<ul class="list-group">'
+			+	'<li id="aSeries" class="list-group-item"><a href="#">등차수열 합</a></li>'
+			+	'<li id="swSeries" class="list-group-item"><a href="#">스위치수열 합</a></li>'
+			+	'<li id="dSeries" class="list-group-item"><a href="#">계차수열 합</a></li>'
+			+	'<li id="factorial" class="list-group-item"><a href="#">팩토리얼수열 합</a></li>'
+			+	'<li id="fibonacci" class="list-group-item"><a href="#">피보나치수열 합</a></li>'
+			+'</ul>';
+		},
+		oopMenu : function(){
+			return '<ul class="list-group">'
+			+	'<li id="encap" class="list-group-item"><a href="#">캡슐화</a></li>'
+			+	'<li id="inherit" class="list-group-item"><a href="#">상 속</a></li>'
+			+	'<li id="poly" class="list-group-item"><a href="#">다형성</a></li>'
+			+'</ul>';
+		},
+		patientGnb : function(){
+			
+		    	   var gnb = '<div style="position: relative; "><ul id="app-gnb" class="app-gnb" >';
+		    	   var arr = ['home/홈으로','mypage/MY PAGE','treatlist/나의 진료기록','board/게시판','customer/고객참여마당','main/로그아웃'];
+		    	   for(var i=0; i<6; i++){
+		    		   gnb+='<li><a href="'+arr[i].split("/")[0]+'">'+arr[i].split("/")[1]+'</a></li>'   
+		    	   }
+				   gnb += '</ul></div>';
+			return gnb;
+		},
+		patientDetail : function(){
+			var image = app.session.getImagePath();
+			var detail=
+			'<div class="app-patient-detail">'
+			+     '<table id="app-table" class="app-table" >'
+			+          '<tr style="text-align: left;">'
+			+                 '<td colspan="5"><h3> 마이페이지</h3></td>'
+			+           '</tr><tr>'
+			+                '<td style="width: 100px" rowspan="5"><img src="'+image+'/common/defaultimg.jpg" alt="" /></td>'
+			+                '<td style="width: 100px" >이름</td>'
+			+                 '<td id="name" style="width: 150px"></td>'
+			+                 '<td style="width: 100px">직업</td>'
+			+                 '<td  id="job" style="width: 150px"></td></tr>'
+			+ 			'<tr><td>생년월일</td>'
+			+                 '<td id="birth" ></td>'
+			+                 '<td>키</td>'
+			+                 '<td> 180cm</td></tr><tr>'
+			+                 '<td>성별</td>'
+			+                 '<td id="gen" ></td>'
+			+                 '<td>나이/몸무게</td>'
+			+                 '<td id="age"></td>'
+			+           '</tr>'
+			+           '<tr>'
+			+                 '<td>전화번호</td>'
+			+                 '<td id="phone" ></td>'
+			+                 '<td>혈액형</td>'
+			+                 '<td> A형 </td>'
+			+           '</tr>'
+			+           '<tr>'
+			+                 '<td>주소</td>'
+			+                 '<td id="addr" ></td>'
+			+                 '<td>주치의</td>'
+			+                 '<td id="docName" >'
+			+					'<a onclick="docDetail()" href="#"> 한석규</a>'
+			+                 '</td>'
+			+           '</tr>'
+			+     '</table>'
+			+     '<input type="button" style="margin-top:20px" id="btn-default" class="btn btn-default" value="차트보기"/>'
+			+'</div>'
+			return detail;
+		},
+		chart : function(){
+			var image = app.session.getImagePath();
+			$("<div></div>").attr('id','div-chart').appendTo('#wrapper');
+			$('#div-chart').css('width','80%').css('margin-top','50px').addClass('app-margin-center');
+			$("<div></div>").attr('id','app-chart-top').appendTo('#div-chart');
+			
+			var table=
+				'<table>'
+				+'<tr><td rowspan="5" style="width:100px">환<br/>자<br/>정<br/>보</td><td class="app-chart-table-elem">이름</td><td colspan="3" class="app-chart-top-table"></td><td class="app-chart-table-elem">직업</td><td class="app-chart-top-table"></td></tr>'
+				+'<tr><td class="app-chart-table-elem">생년월일</td><td class="app-chart-top-table"></td><td class="app-chart-col-table">키</td><td class="app-chart-top-table"></td><td class="app-chart-table-elem">직업</td><td class="app-chart-top-table"></td></tr>'       
+				+'<tr><td class="app-chart-table-elem">성별</td><td colspan="3" class="app-chart-top-table"></td><td class="app-chart-table-elem">몸무게</td><td class="app-chart-top-table"></td></tr>'
+			    +'<tr><td class="app-chart-table-elem">전화번호</td><td colspan="3" class="app-chart-top-table"></td><td class="app-chart-table-elem">혈액형</td><td class="app-chart-top-table"></td></tr>'
+			    +'<tr><td class="app-chart-table-elem">주소</td><td colspan="3" class="app-chart-top-table"></td><td class="app-chart-table-elem">주치의</td><td class="app-chart-top-table"></td></tr>'
+				+'</table>';			 
+			$(table).attr('id','app-chart-top-table').appendTo('#app-chart-top');
+			$('#app-chart-top-table').css('width','800px');
+			$('#app-chart-top').addClass('app-chart-top').css('text-align','center');
+			$("<div></div>").attr('id','app-chart-center').appendTo('#app-chart-top');
+			$('#app-chart-center').addClass('app-chart-center');
+			var fileUpload='<form id="form-file-upload" name="form-file-upload" method="post" action="" enctype="multipart/form-data">'+
+			'<input type="file" id="file" name="file"/>'+
+			'<input type="submit" id="btn-file-upload" value="파일업로드"/></form>'
+			$('#app-chart-center').html(
+				'<div class="app-chart-center-center">처방전'+
+			        '<br/>'+
+			        '<img src="'+image+'/common/defaultimg.jpg" style="width:200px; height:200px;float:left"/>'+
+			    '</div>	'+fileUpload);
+			$('#form-file-upload').css('margin-top','20px');
+			$("<div></div>").attr('id','app-chart-bottom').appendTo('#app-chart-center');
+			$('<table><thead id="thead"></thead><tbody id="tbody"></tbody></table>').attr('id','app-chart-bottom-table').appendTo('#app-chart-bottom');
+			var row = '<tr>';
+			var arr=['순서','진료일','진료 NO','담당의사','직책','진료과목','병명','처방내역'];
+			for(var i=0;i<8;i++){
+				row+='<th>'+arr[i]+'</th>';
+			}
+			row+='</tr>';
+			$('#thead').html(row);
+			var row = '<tr>';
+			for(var i=0;i<8;i++){
+				row+='<td>'+'example'+'</td>';
+			}
+			row+='</tr>';
+			$('#tbody').html(row);
+			$('#thead th').addClass('app-chart-table-elem').addClass('app-text-center');
+			$('#tbody td').addClass('app-chart-table-elem').addClass('app-text-center');
+			$('#app-chart-bottom-table').css('margin-top','20px').addClass('app-chart-bottom-table');
+		
+		}
 };
 
-app.navi=(function(){})();
 app.util={
 	validation: function(x){
 		return (x!="");
 	}	
 };
-app.patient=(function(){})();
 app.algorithm.TABLE='<div style="width:100%">'
 	+'<table style="margin: 0 auto; width:500px; height:300px; border-collapse: collapse; border: 1px solid black;">'
 	+'<tr><td id="tableLeft" style="width:50%; border: 1px solid black;"></td>'

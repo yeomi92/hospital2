@@ -92,13 +92,12 @@ public class PersonController {
 					if (patient.getPass().equals(password)) {
 						logger.info("DB RESULT: {}", "Success");
 						map.put("patient",patient);
-						map.put("job",patient.getJob());
-						map.put("birth",patient.getJumin());
-						map.put("gen",patient.getGen());
-						map.put("age",patient.getJumin());
-						map.put("phone",patient.getPhone());
-						map.put("addr",patient.getAddr());
-						map.put("docId",patient.getDocID());
+						map.put("group","Doctor");
+						map.put("idType","doc_id");
+						map.put("id", patient.getDocID());
+						doctor=personService.getDoctor(map);
+						logger.info("doctor name: {}", doctor.getName());
+						map.put("docName",doctor.getName());
 					}
 					break;
 				case "Doctor":

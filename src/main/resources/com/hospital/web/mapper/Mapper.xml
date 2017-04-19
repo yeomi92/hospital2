@@ -88,6 +88,9 @@
 		</if>
 	</select>
 	
+	<select id="findChart" resultType="com.hospital.web.domain.Chart" parameterType="hashMap">
+	select * from chartview where patientid=#{id};
+	</select>
 	
 	<select id="count" resultType="int">
 		select count(*) from ${group}
@@ -95,6 +98,7 @@
 	<select id="exist" resultType="int" parameterType="hashMap">
 		select count(*) from ${group} where ${idType}=#{id}
 	</select>
+	
 	
 	<update id="updatePatient">
 		UPDATE ${group}
