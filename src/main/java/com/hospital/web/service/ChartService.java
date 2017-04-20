@@ -26,4 +26,8 @@ public class ChartService {
 		logger.info("ChartService chartList()의 list: {}",list);
 		return list;
 	}
+	public int registerChartFile(Chart c) throws Exception{
+		IPostService service=(param)->mapper.registChartFile(param);
+		return service.execute(c);
+	}
 }

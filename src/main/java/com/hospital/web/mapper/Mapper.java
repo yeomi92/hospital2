@@ -14,6 +14,7 @@ public interface Mapper {
 	public int registPatient(Object o)throws Exception;
 	public int registDoctor(Object o)throws Exception;
 	public int registNurse(Object o)throws Exception;
+	public int registChartFile(Object o)throws Exception;
 	public Object findMember(Map<?,?> map)throws Exception;
 	public Patient findPatient(Map<?,?> map)throws Exception;
 	public Doctor findDoctor(Map<?,?> map)throws Exception;

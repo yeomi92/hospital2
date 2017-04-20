@@ -46,6 +46,10 @@
 	<insert id="registNurse">
 		INSERT INTO ${group}(nur_id, nur_pass, major_job, nur_name, nur_gen, nur_phone, nur_email, nur_position) VALUES (#{id},#{pass},#{major},#{name},#{gen},#{phone},#{email},#{position})
 	</insert>
+	<insert id="resgisterChartFile">
+		INSERT INTO Chart(chart_contents) VALUES(#{chartContents})
+		WHERE chart_id=#{chartId}
+	</insert>
 	
 	<select id="findPatient" resultMap="Patient" parameterType="hashMap">
 		SELECT * FROM ${group} WHERE ${idType} = #{id}
@@ -89,7 +93,7 @@
 	</select>
 	
 	<select id="findChart" resultType="com.hospital.web.domain.Chart" parameterType="hashMap">
-	select * from chartview where patientid=#{id};
+	select * from chartview where patientid=#{id} and chartid is not null;
 	</select>
 	
 	<select id="count" resultType="int">

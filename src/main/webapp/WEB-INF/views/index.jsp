@@ -27,6 +27,8 @@
  	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
  	crossorigin="anonymous"></script>
  	<script src="${context}/resources/js/app.js"></script>
+ 	<script src="${context}/resources/js/cookie.js"></script>
+ 	<script src="${context}/resources/js/fileUpload.js"></script>
  </head>
  <body>
  	<nav id="boot-nav" class="navbar navbar-inverse">
