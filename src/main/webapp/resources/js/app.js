@@ -6,6 +6,8 @@ app-algorithm
 	app-algorithm-matrix
 	app-algorithm-math
 	app-algorithm-application
+app-bbs
+	
 app-component
 	app-component-button
 	app-component-input
@@ -49,6 +51,7 @@ app.context=(function(){
 		app.algorithm.init();
 		app.component.init();
 		app.oop.init();
+		app.bbs.init();
 	};
 	var setContentView=function(){
 		
@@ -1129,6 +1132,35 @@ app.info=(function(){
 		}
 	};
 })();
+/*
+========= app-bbs ====
+@AUTHOR : yheisun@gmail.com
+@CREATE DATE : 2017-4-21
+@UPDATE DATE : 2017-4-21
+@DESC : 게시판
+==============================
+*/
+app.bbs=(function(){
+	var init=function(){
+		onCreate();
+	};
+	var onCreate=function(){
+		board();
+	};
+	var board=function(){
+		$('#bbs').on('click',function(){
+			alert('bbs');
+			 $('#wrapper').html(app.ui.bbs());
+		});
+	};
+	return{
+		init: init,
+		onCreate: onCreate,
+		board : board
+	};
+})();
+
+
 
 /*************************************************************************************
  * View
@@ -1783,6 +1815,78 @@ app.ui={
 			        '<img src="'+image+'/common/defaultimg.jpg" style="width:200px; height:200px;float:left"/>'+
 			    '</div>	'+fileUpload);
 			$('#form-file-upload').css('margin-top','20px');
+		},
+		bbs: function(){
+			var bbs='<div id="container">'
+				+'<div>'
+				+'<form action="articleSome.jsp">'
+				+'<select name="property" name="property">'
+				+'<option value="id">작성자</option>'
+				+'<option value="title">제목</option>'
+				+'</select>'
+				+'<input type="text" name="searchKeyword"/>'
+				+'<input type="submit" value="검색"/>'
+				+'</form>'
+				+'<table id="articleList">'
+				+'<tr>'
+				+'<td>총게시글수: ${requestScope.count}</td>'
+				+'</tr>'
+				+'<tr>'
+				+'<th>번호</th>'
+				+'<th>제목</th>'
+				+'<th>작성자</th>'
+				+'<th>날짜</th>'
+				+'<th>조회수</th>'
+				+'</tr>'
+				//for문
+				+'<c:forEach var="article" items="${requestScope.list}">'
+					+'<tr>'
+						+'<td>${article.seq}</td>'
+						+'<td><a href="${context}/board.do?action=detail&page=article&seq=${article.seq}">${article.title}</a></td>'
+						+'<td>${article.id}</td>'
+						+'<td>${article.regdate}</td>'
+						+'<td>${article.readCount}</td>'
+					+'</tr>'
+				+'</c:forEach>'
+				+'</table>'
+				+'<nav id="pagination">'
+				+'<ul>'
+				//if문
+				+'<c:if test="${requestScope.prevBlock gt 0}">'
+					+'<a href="${context}/board.do?action=list&page=articleList&pageNO=${requestScope.prevBlock}">◀prev</a>'
+				+'</c:if>'
+				//for문
+				+'<c:forEach begin="${requestScope.blockStart}" end="${requestScope.blockEnd}" step="1" varStatus="i">'
+					+'<li>'
+					+'<c:choose>'
+						+'<c:when test="${i.index eq pageNO}">'
+							+'<a href="#"><font>${i.index}</font></a>'
+						+'</c:when>'
+						+'<c:otherwise>'
+							+'<a href="${context}/board.do?action=list&page=articleList&pageNO=${i.index}">${i.index}</a>'
+						+'</c:otherwise>'
+					+'</c:choose>'
+					+'</li>'
+				+'</c:forEach>'
+				//if문
+				+'<c:if test="${requestScope.nextBlock le pageCount}">'
+					+'<a href="${context}/board.do?action=list&page=articleList&pageNO=${requestScope.nextBlock}">next▶</a>'
+				+'</c:if>'
+				+'</ul>'
+				+'</nav>'
+				+'</div>'
+				+'</div>';
+				var $articleList=$('#articleList');
+				var $pagination=$('#pagination');
+				$('#container').addClass('width_full_size');
+				$('#container>div').addClass('margin_center').css('width','500px');
+				$articleList.addClass('table_default').addClass('margin_center').css('width','500px').css('height','180px');
+				$pagination.css('"width','500px').css('margin','0 auto').css('text-align','center');
+				$pagination.find('a').css('text-decoration','none');
+				$pagination.find('li').css('text-align','center').css('width','38px').css('display','inline');
+				$pagination.find('font').css('color','red');
+				return bbs;
+			
 		}
 };
 
