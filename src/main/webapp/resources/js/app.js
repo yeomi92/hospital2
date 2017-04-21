@@ -1148,9 +1148,37 @@ app.bbs=(function(){
 		board();
 	};
 	var board=function(){
-		$('#bbs').on('click',function(){
-			alert('bbs');
-			 $('#wrapper').html(app.ui.bbs());
+		$('#bbs').on('click',function(e){
+			e.preventDefault();
+			var ctx=app.session.getContextPath();
+			var table=app.ui.bbs();
+			var row='';
+			$.getJSON(ctx+'/list/bbs/1',function(data){
+				alert('getJSON '+data.count);
+				$.each(data.list,function(i,item){
+					row+='<tr>'
+					+'<td>'+(i+1)+'</td>'
+					+'<td><a href="#">'+item.title+'</a></td>'
+					+'<td>'+item.writerId+'</td>'
+					+'<td>'+item.regDate+'</td>'
+					+'<td>'+item.readCount+'</td>'
+				+'</tr>'
+				});
+				table+=row;
+				table+='</tbody></table>';
+				var pagination='<nav id="pagination" aria-label="Page navigation" align="center"><ul class="pagenation"></ul></nav>';
+				$('#wrapper').html(table);
+				$('#count').html('총 게시글 수: '+data.count);
+				var $articleList=$('#table');
+				var $pagination=$('#pagination');
+				$('#container').addClass('width_full_size');
+				$('#container>div').addClass('margin_center').css('width','500px');
+				$articleList.addClass('table_default').addClass('margin_center').css('width','500px');
+				$pagination.css('"width','500px').css('margin','0 auto').css('text-align','center');
+				$pagination.find('a').css('text-decoration','none');
+				$pagination.find('li').css('text-align','center').css('width','38px').css('display','inline');
+				$pagination.find('font').css('color','red');
+			});
 		});
 	};
 	return{
@@ -1819,17 +1847,15 @@ app.ui={
 		bbs: function(){
 			var bbs='<div id="container">'
 				+'<div>'
-				+'<form action="articleSome.jsp">'
 				+'<select name="property" name="property">'
 				+'<option value="id">작성자</option>'
 				+'<option value="title">제목</option>'
 				+'</select>'
 				+'<input type="text" name="searchKeyword"/>'
-				+'<input type="submit" value="검색"/>'
-				+'</form>'
-				+'<table id="articleList">'
+				+'<input type="button" value="검색"/>'
+				+'<table id="table"><thead>'
 				+'<tr>'
-				+'<td>총게시글수: ${requestScope.count}</td>'
+				+'<td id="count">총게시글수: </td>'
 				+'</tr>'
 				+'<tr>'
 				+'<th>번호</th>'
@@ -1837,20 +1863,9 @@ app.ui={
 				+'<th>작성자</th>'
 				+'<th>날짜</th>'
 				+'<th>조회수</th>'
-				+'</tr>'
-				//for문
-				+'<c:forEach var="article" items="${requestScope.list}">'
-					+'<tr>'
-						+'<td>${article.seq}</td>'
-						+'<td><a href="${context}/board.do?action=detail&page=article&seq=${article.seq}">${article.title}</a></td>'
-						+'<td>${article.id}</td>'
-						+'<td>${article.regdate}</td>'
-						+'<td>${article.readCount}</td>'
-					+'</tr>'
-				+'</c:forEach>'
-				+'</table>'
-				+'<nav id="pagination">'
-				+'<ul>'
+				+'</tr></thead><tbody>';
+				
+			var pagination='<nav id="pagination" aria-label="Page navigation" align="center"><ul class="pagenation">'
 				//if문
 				+'<c:if test="${requestScope.prevBlock gt 0}">'
 					+'<a href="${context}/board.do?action=list&page=articleList&pageNO=${requestScope.prevBlock}">◀prev</a>'
@@ -1876,7 +1891,7 @@ app.ui={
 				+'</nav>'
 				+'</div>'
 				+'</div>';
-				var $articleList=$('#articleList');
+				var $articleList=$('#table');
 				var $pagination=$('#pagination');
 				$('#container').addClass('width_full_size');
 				$('#container>div').addClass('margin_center').css('width','500px');

@@ -144,7 +144,11 @@
 		WHERE ${key} = ${value}
 	</delete>
 	
-	
+	<select id="boardList" resultType="com.hospital.web.domain.Article" parameterType="hashMap">
+		SELECT art_seq as seq,writer_id as writerId,title,content,reg_date as regDate,read_count as readCount
+		FROM article
+		<if test="art_seq != null">WHERE art_seq=${seq}</if>
+	</select>
 	
 	
 	
